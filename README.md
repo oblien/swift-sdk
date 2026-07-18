@@ -90,4 +90,4 @@ Runtime data plane (`let rt = try await handle.runtime()`):
 
 ## License
 
-AGPL-3.0
+MIT
