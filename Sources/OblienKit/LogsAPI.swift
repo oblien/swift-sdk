@@ -31,6 +31,22 @@ public struct LogsAPI: Sendable {
         let data = try await transport.request("GET", base + "/file/\(name.pathEscaped)")
         return String(data: data, encoding: .utf8) ?? ""
     }
+
+    public func files() async throws -> [LogFile] {
+        struct Envelope: Decodable { let files: [LogFile] }
+        return try OblienJSON.decode(Envelope.self, await transport.request("GET", base + "/list")).files
+    }
+
+    /// Preserves the complete JSON log-file response, matching the TypeScript API.
+    public func fileResponse(_ name: String) async throws -> APIResponse {
+        try await transport.api("GET", base + "/file/\(name.pathEscaped)")
+    }
+}
+
+public struct LogFile: Codable, Sendable {
+    public let name: String
+    public let size: Int
+    public var modified: String?
 }
 
 extension WorkspaceHandle {

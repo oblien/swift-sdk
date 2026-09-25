@@ -1,0 +1,28 @@
+name: Verify SDK
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  swift-and-parity:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Swift tests
+        run: swift test
+      - name: Verify TypeScript API coverage
+        shell: bash
+        run: |
+          audit_dir="$RUNNER_TEMP/oblien-sdk-audit"
+          npm install --prefix "$audit_dir" --ignore-scripts --no-audit --no-fund typescript@6.0.3 oblien@2.4.0
+          NODE_PATH="$audit_dir/node_modules" node scripts/audit-typescript-sdk.cjs "$audit_dir/node_modules/oblien/dist"
+          NODE_PATH="$audit_dir/node_modules" node scripts/generate-platform-models.cjs "$audit_dir/node_modules/oblien/dist"
+          git diff --exit-code -- Sources/OblienKit/PlatformModels

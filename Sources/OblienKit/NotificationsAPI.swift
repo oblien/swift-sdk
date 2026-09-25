@@ -1,9 +1,7 @@
 import Foundation
 
-/// Workspace push **send tokens** (`/notifications/tokens*`, management API, session-authed). The
-/// plaintext token is returned once on create and handed to the workspace daemon, which uses it to
-/// `POST /notifications/send`. (FCM *device* registration is the app's concern — Firebase-specific,
-/// not part of this SDK.)
+/// Push send tokens and delivery. Device registration methods are for the signed-in
+/// mobile app only; workspace credentials must never manage the user's device registry.
 public struct NotificationsAPI: Sendable {
     let transport: Transport
 
@@ -33,7 +31,7 @@ public struct NotificationsAPI: Sendable {
     }
 
     /// Existing send tokens for a workspace (no plaintext — prefix/status only).
-    public func listSendTokens(workspaceId: String) async throws -> [WorkspaceSendToken] {
+    public func listSendTokens(workspaceId: String? = nil) async throws -> [WorkspaceSendToken] {
         let data = try await transport.request("GET", "/notifications/tokens",
                                                query: ["workspace_id": workspaceId])
         return try OblienJSON.decode(TokenListEnvelope.self, data).tokens
@@ -45,6 +43,53 @@ public struct NotificationsAPI: Sendable {
 
     public func deleteSendToken(id: Int) async throws {
         _ = try await transport.request("DELETE", "/notifications/tokens/\(id)")
+    }
+}
+
+extension NotificationsAPI {
+    private struct DeviceEnvelope: Decodable { let device: PushDevice }
+    private struct CreatedTokenEnvelope: Decodable { let token: CreatedWorkspacePushToken }
+
+    /// App-internal: requires the owner's user session, not a delegated workspace token.
+    public func registerDevice(_ params: RegisterDeviceParams) async throws -> PushDevice {
+        let response: DeviceEnvelope = try await transport.api("POST", "/notifications/devices", body: APIJSON.encode(params))
+        return response.device
+    }
+    public func deviceStatus(deviceId: String) async throws -> PushDeviceRegistrationStatus {
+        try await transport.api("GET", "/notifications/devices/status", query: ["device_id": deviceId])
+    }
+    public func listDevices() async throws -> PushDeviceListResponse { try await transport.api("GET", "/notifications/devices") }
+    @discardableResult public func removeDevice(_ id: Int) async throws -> APIResponse {
+        try await transport.api("DELETE", "/notifications/devices/\(id)")
+    }
+    public func createToken(_ params: CreatePushTokenParams) async throws -> CreatedWorkspacePushToken {
+        let response: CreatedTokenEnvelope = try await transport.api("POST", "/notifications/tokens", body: APIJSON.encode(params))
+        return response.token
+    }
+    public func listTokens(workspaceId: String? = nil) async throws -> PushTokenListResponse {
+        try await transport.api("GET", "/notifications/tokens", query: ["workspace_id": workspaceId])
+    }
+    public func revokeToken(_ id: Int) async throws { try await revokeSendToken(id: id) }
+    public func deleteToken(_ id: Int) async throws { try await deleteSendToken(id: id) }
+    /// Authenticates with the virtual send token alone, never the account's session.
+    public func send(token: String, _ params: SendNotificationParams) async throws -> SendNotificationResponse {
+        try await transport.api("POST", "/notifications/send", body: APIJSON.encode(params), bearer: token)
+    }
+}
+
+public struct PushDeviceRegistrationStatus: Codable, Sendable {
+    public let success: Bool
+    public let registered: Bool
+    public let id: Int?
+    public let deviceId: String?
+    public let platform: PushPlatform?
+    public let deviceInfo: [String: JSONValue]?
+    public let status: PushDeviceStatus?
+    public let lastSeenAt: String?
+    public let createdAt: String?
+    enum CodingKeys: String, CodingKey {
+        case success, registered, id, platform, status
+        case deviceId = "device_id", deviceInfo = "device_info", lastSeenAt = "last_seen_at", createdAt = "created_at"
     }
 }
 

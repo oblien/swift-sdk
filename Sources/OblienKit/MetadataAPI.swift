@@ -27,6 +27,14 @@ public struct MetadataAPI: Sendable {
         let data = try await transport.request("PATCH", path, body: body)
         return try OblienJSON.decode(JSONValue.self, data)
     }
+
+    /// Typed metadata helpers encode the required `metadata` envelope.
+    public func update(metadata: [String: String]) async throws -> JSONValue {
+        try await update(.object(["metadata": .object(metadata.mapValues(JSONValue.string))]))
+    }
+    public func patch(metadata: [String: String]) async throws -> JSONValue {
+        try await patch(.object(["metadata": .object(metadata.mapValues(JSONValue.string))]))
+    }
 }
 
 extension WorkspaceHandle {
