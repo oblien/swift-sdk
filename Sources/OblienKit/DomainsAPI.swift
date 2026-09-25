@@ -11,7 +11,7 @@ public struct DomainsAPI: Sendable {
     /// Current bound domain, or `nil` if none is configured.
     public func get() async throws -> DomainInfo? {
         let data = try await transport.request("GET", base)
-        return (try? OblienJSON.decode(DomainEnvelope.self, data))?.domain
+        return try OblienJSON.decode(DomainEnvelope.self, data).domain
     }
 
     /// Bind a custom domain (optionally to a specific port, optionally including the `www` alias).
@@ -53,6 +53,44 @@ public struct DomainInfo: Codable, Sendable {
     public var dns: JSONValue?
     public var includeWww: Bool?
     public var removed: Bool?
+    public var customDomain: String?
+    public var sslStatus: String?
+    public var sslExpiry: String?
+    public var sslError: String?
+
+    public var additionalProperties: [String: JSONValue] = [:]
+
+    public init(from decoder: Decoder) throws {
+        var fields = try JSONFields(from: decoder)
+        domain = try fields.take("domain", as: String.self)
+        port = try fields.take("port", as: Int.self)
+        url = try fields.take("url", as: String.self)
+        ssl = try fields.take("ssl", as: JSONValue.self)
+        dns = try fields.take("dns", as: JSONValue.self)
+        includeWww = try fields.take("include_www", as: Bool.self)
+        removed = try fields.take("removed", as: Bool.self)
+        customDomain = try fields.take("custom_domain", as: String.self)
+        sslStatus = try fields.take("ssl_status", as: String.self)
+        sslExpiry = try fields.take("ssl_expiry", as: String.self)
+        sslError = try fields.take("ssl_error", as: String.self)
+        additionalProperties = fields.values
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var fields = JSONFields(additionalProperties)
+        try fields.set("domain", domain)
+        try fields.set("port", port)
+        try fields.set("url", url)
+        try fields.set("ssl", ssl)
+        try fields.set("dns", dns)
+        try fields.set("include_www", includeWww)
+        try fields.set("removed", removed)
+        try fields.set("custom_domain", customDomain)
+        try fields.set("ssl_status", sslStatus)
+        try fields.set("ssl_expiry", sslExpiry)
+        try fields.set("ssl_error", sslError)
+        try fields.encode(to: encoder)
+    }
 }
 
 /// Result of a DNS / slug check (loose shape).
@@ -64,6 +102,19 @@ public struct DomainCheck: Codable, Sendable {
     public var available: Bool?
     public var dns: JSONValue?
     public var records: JSONValue?
+    public var verified: Bool?
+    public var enterprise: Bool?
+    public var cname: Bool?
+    public var ownership: Bool?
+    public var errors: [String]?
+    public var edgeIps: [String]?
+    public var requiredRecords: RequiredRecords?
+    public struct RequiredRecords: Codable, Sendable {
+        public var cname: CNAME?
+        public var txt: TXT?
+        public struct CNAME: Codable, Sendable { public var host: String?; public var target: String? }
+        public struct TXT: Codable, Sendable { public var host: String?; public var value: String?; public var note: String? }
+    }
 }
 
 // MARK: - Accessors

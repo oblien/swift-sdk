@@ -15,6 +15,8 @@ public enum OblienAuth: Sendable {
 public struct OblienConfiguration: Sendable {
     public var baseURL: URL
     public var runtimeURL: URL
+    /// CDN edge upload API; receives only a CDN-scoped token, never account credentials.
+    public var cdnURL: URL
     public var auth: OblienAuth
     public var maxRetries: Int
     /// Gateway (runtime) JWT cache lifetime. Docs are contradictory (1h vs 30d); 55m is safe.
@@ -25,11 +27,13 @@ public struct OblienConfiguration: Sendable {
         baseURL: URL = URL(string: "https://api.oblien.com")!,
         runtimeURL: URL = URL(string: "https://workspace.oblien.com")!,
         maxRetries: Int = 3,
-        runtimeTokenTTL: TimeInterval = 55 * 60
+        runtimeTokenTTL: TimeInterval = 55 * 60,
+        cdnURL: URL = URL(string: "https://cdn.oblien.com/api")!
     ) {
         self.auth = auth
         self.baseURL = baseURL
         self.runtimeURL = runtimeURL
+        self.cdnURL = cdnURL
         self.maxRetries = maxRetries
         self.runtimeTokenTTL = runtimeTokenTTL
     }

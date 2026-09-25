@@ -34,7 +34,25 @@ public struct NetworkAPI: Sendable {
         let data = try await transport.request("PATCH", "/workspace/\(workspaceId.pathEscaped)/network", body: body)
         return try OblienJSON.decode(Network.self, data)
     }
+    public func setOutboundIP(_ ip: String) async throws {
+        struct Body: Encodable { let ip: String }
+        _ = try await transport.request("POST", "/workspace/\(workspaceId.pathEscaped)/network/ip", body: OblienJSON.encode(Body(ip: ip)))
+    }
 }
+
+public struct OutboundIP: Codable, Sendable, Identifiable {
+    public let ip: String
+    public var countryCode: String?
+    public var id: String { ip }
+}
+public struct ZonesAPI: Sendable {
+    let transport: Transport
+    public func mine() async throws -> [OutboundIP] {
+        struct Envelope: Decodable { let proxies: [OutboundIP] }
+        return try OblienJSON.decode(Envelope.self, await transport.request("GET", "/zone/mine")).proxies
+    }
+}
+extension OblienClient { public var zones: ZonesAPI { ZonesAPI(transport: transport) } }
 
 public struct PublicAccessAPI: Sendable {
     let transport: Transport
@@ -45,18 +63,19 @@ public struct PublicAccessAPI: Sendable {
     public func list() async throws -> [ExposedPort] {
         let data = try await transport.request("GET", "/workspace/\(workspaceId.pathEscaped)/public-access")
         if let env = try? OblienJSON.decode(PortsEnvelope.self, data) { return env.ports }
-        return (try? OblienJSON.decode([ExposedPort].self, data)) ?? []
+        return try OblienJSON.decode([ExposedPort].self, data)
     }
-    public func expose(port: Int, label: String? = nil, slug: String? = nil) async throws -> ExposedPort {
-        struct Body: Encodable { let port: Int; let label: String?; let slug: String? }
-        let body = try OblienJSON.encode(Body(port: port, label: label, slug: slug))
+    public func expose(port: Int, label: String? = nil, slug: String? = nil, domain: String? = nil) async throws -> ExposedPort {
+        struct Body: Encodable { let port: Int; let label: String?; let slug: String?; let domain: String? }
+        let body = try OblienJSON.encode(Body(port: port, label: label, slug: slug, domain: domain))
         let data = try await transport.request("POST", "/workspace/\(workspaceId.pathEscaped)/public-access", body: body)
         return try OblienJSON.decode(PortEnvelope.self, data).port
     }
-    public func updateSlug(port: Int, slug: String) async throws {
+    @discardableResult public func updateSlug(port: Int, slug: String) async throws -> ExposedPort {
         struct Body: Encodable { let slug: String }
         let body = try OblienJSON.encode(Body(slug: slug))
-        _ = try await transport.request("PATCH", "/workspace/\(workspaceId.pathEscaped)/public-access/\(port)", body: body)
+        let data = try await transport.request("PATCH", "/workspace/\(workspaceId.pathEscaped)/public-access/\(port)", body: body)
+        return try OblienJSON.decode(PortEnvelope.self, data).port
     }
     public func revoke(port: Int) async throws {
         _ = try await transport.request("DELETE", "/workspace/\(workspaceId.pathEscaped)/public-access/\(port)")

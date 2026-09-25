@@ -33,7 +33,10 @@ public enum JSONValue: Codable, Sendable, Equatable {
     }
 
     public var stringValue: String? { if case .string(let s) = self { return s }; return nil }
-    public var intValue: Int? { if case .number(let n) = self { return Int(n) }; return nil }
+    public var intValue: Int? {
+        if case .number(let n) = self, n.isFinite, n >= Double(Int.min), n < Double(Int.max), n.rounded() == n { return Int(n) }
+        return nil
+    }
     public var boolValue: Bool? { if case .bool(let b) = self { return b }; return nil }
     public subscript(_ key: String) -> JSONValue? { if case .object(let o) = self { return o[key] }; return nil }
 }

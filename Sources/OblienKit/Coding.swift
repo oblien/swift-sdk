@@ -23,13 +23,18 @@ enum OblienJSON {
         do {
             return try decoder().decode(type, from: data)
         } catch {
-            // Include a snippet of the ACTUAL response so a decode failure is diagnosable (HTML
-            // error page, empty body, wrong shape, …) instead of an opaque "not valid json".
-            let raw = String(decoding: data.prefix(300), as: UTF8.self)
-                .trimmingCharacters(in: .whitespacesAndNewlines)
-            let snippet = raw.isEmpty ? "<empty \(data.count)b>" : raw
+            // Responses can contain access tokens, passwords or environment variables. Report
+            // the failing field, never response bytes or DecodingError's value descriptions.
+            let path: [CodingKey]
+            switch error {
+            case DecodingError.keyNotFound(let key, let context): path = context.codingPath + [key]
+            case DecodingError.typeMismatch(_, let context), DecodingError.valueNotFound(_, let context),
+                 DecodingError.dataCorrupted(let context): path = context.codingPath
+            default: path = []
+            }
+            let location = path.map(\.stringValue).joined(separator: ".")
             throw OblienError(kind: .decoding, status: nil, code: nil,
-                              message: "Failed to decode \(type): \(error) — body: \(snippet)", details: nil)
+                              message: "Unexpected \(type) response" + (location.isEmpty ? "." : " at \(location)."), details: nil)
         }
     }
 }

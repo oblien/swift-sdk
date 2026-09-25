@@ -1,0 +1,1558 @@
+{
+  "version": "2.4.0",
+  "methods": {
+    "analytics.d.ts:Analytics.home": {
+      "signature": "home(params?: { namespace?: string; }): Promise<ApiResponse & { data: AnalyticsHomeSummary; }>;",
+      "swift": "home",
+      "sources": "AnalyticsAPI"
+    },
+    "analytics.d.ts:Analytics.get": {
+      "signature": "get(domain: string, params?: { from?: number; to?: number; interval?: string; limit?: number; }): Promise<ApiResponse & { data: { overview: AnalyticsOverview; timeseries: any[]; geo: any; requests: any[]; }; meta: any; }>;",
+      "swift": "get",
+      "sources": "AnalyticsAPI"
+    },
+    "analytics.d.ts:Analytics.timeseries": {
+      "signature": "timeseries(domain: string, params?: AnalyticsTimeseriesParams): Promise<AnalyticsTimeseriesResponse>;",
+      "swift": "timeseries",
+      "sources": "AnalyticsAPI"
+    },
+    "analytics.d.ts:Analytics.geo": {
+      "signature": "geo(domain: string, params?: AnalyticsGeoParams): Promise<AnalyticsGeoResponse>;",
+      "swift": "geo",
+      "sources": "AnalyticsAPI"
+    },
+    "analytics.d.ts:Analytics.requests": {
+      "signature": "requests(domain: string, params?: AnalyticsRequestsParams): Promise<AnalyticsRequestsResponse>;",
+      "swift": "requests",
+      "sources": "AnalyticsAPI"
+    },
+    "analytics.d.ts:Analytics.streamToken": {
+      "signature": "streamToken(domain: string): Promise<AnalyticsStreamTokenResponse>;",
+      "swift": "streamToken",
+      "sources": "AnalyticsAPI"
+    },
+    "billing.d.ts:Billing.catalog": {
+      "signature": "catalog(): Promise<BillingCatalog>;",
+      "swift": "catalog",
+      "sources": "BillingAPI"
+    },
+    "billing.d.ts:Billing.checkout": {
+      "signature": "checkout(params: CheckoutParams): Promise<CheckoutResponse>;",
+      "swift": "checkout",
+      "sources": "BillingAPI"
+    },
+    "billing.d.ts:Billing.checkoutStatus": {
+      "signature": "checkoutStatus(namespace: string, checkoutId: string): Promise<BillingCheckoutResponse>;",
+      "swift": "checkoutStatus",
+      "sources": "BillingAPI"
+    },
+    "billing.d.ts:Billing.portal": {
+      "signature": "portal(params: PortalParams): Promise<PortalResponse>;",
+      "swift": "portal",
+      "sources": "BillingAPI"
+    },
+    "billing.d.ts:Billing.subscription": {
+      "signature": "subscription(namespace: string): Promise<BillingSubscriptionResponse>;",
+      "swift": "subscription",
+      "sources": "BillingAPI"
+    },
+    "billing.d.ts:Billing.cancelSubscription": {
+      "signature": "cancelSubscription(namespace: string): Promise<BillingSubscriptionResponse>;",
+      "swift": "cancelSubscription",
+      "sources": "BillingAPI"
+    },
+    "billing.d.ts:Billing.resumeSubscription": {
+      "signature": "resumeSubscription(namespace: string): Promise<BillingSubscriptionResponse>;",
+      "swift": "resumeSubscription",
+      "sources": "BillingAPI"
+    },
+    "billing.d.ts:Billing.resetQuota": {
+      "signature": "resetQuota(namespace: string, params: ResetQuotaParams): Promise<ResetQuotaResponse>;",
+      "swift": "resetQuota",
+      "sources": "BillingAPI"
+    },
+    "billing.d.ts:Billing.entitlement": {
+      "signature": "entitlement(namespace: string): Promise<Entitlement>;",
+      "swift": "entitlement",
+      "sources": "BillingAPI"
+    },
+    "billing.d.ts:Billing.balance": {
+      "signature": "balance(namespace: string): Promise<BillingBalance>;",
+      "swift": "balance",
+      "sources": "BillingAPI"
+    },
+    "billing.d.ts:Billing.policy": {
+      "signature": "policy(namespace: string): Promise<BillingPolicy>;",
+      "swift": "policy",
+      "sources": "BillingAPI"
+    },
+    "billing.d.ts:Billing.setPolicy": {
+      "signature": "setPolicy(namespace: string, params: BillingPolicyParams): Promise<BillingPolicy>;",
+      "swift": "setPolicy",
+      "sources": "BillingAPI"
+    },
+    "billing.d.ts:Billing.defaults": {
+      "signature": "defaults(): Promise<BillingDefaults>;",
+      "swift": "defaults",
+      "sources": "BillingAPI"
+    },
+    "billing.d.ts:Billing.setDefaults": {
+      "signature": "setDefaults(params: BillingDefaultsParams): Promise<BillingDefaults>;",
+      "swift": "setDefaults",
+      "sources": "BillingAPI"
+    },
+    "cdn.d.ts:Cdn.token": {
+      "signature": "token(params?: CdnTokenParams): Promise<CdnTokenResponse>;",
+      "swift": "token",
+      "sources": "CDNAPI"
+    },
+    "cdn.d.ts:Cdn.adminToken": {
+      "signature": "adminToken(params?: CdnTokenParams): Promise<CdnTokenResponse>;",
+      "swift": "adminToken",
+      "sources": "CDNAPI"
+    },
+    "cdn.d.ts:Cdn.upload": {
+      "signature": "upload(file: CdnUploadInput, params?: CdnUploadParams): Promise<CdnUploadResponse>;",
+      "swift": "upload",
+      "sources": "CDNAPI"
+    },
+    "cdn.d.ts:Cdn.uploadMany": {
+      "signature": "uploadMany(files: CdnUploadInput[], params?: CdnUploadParams): Promise<CdnUploadManyResponse>;",
+      "swift": "uploadMany",
+      "sources": "CDNAPI"
+    },
+    "cdn.d.ts:Cdn.processUrls": {
+      "signature": "processUrls(params: CdnProcessUrlsParams): Promise<CdnProcessUrlsResponse>;",
+      "swift": "processUrls",
+      "sources": "CDNAPI"
+    },
+    "cdn.d.ts:Cdn.getLimits": {
+      "signature": "getLimits(params?: { token?: string; namespace?: string; }): Promise<CdnLimitsResponse>;",
+      "swift": "getLimits",
+      "sources": "CDNAPI"
+    },
+    "cdn.d.ts:Cdn.getVariantOptions": {
+      "signature": "getVariantOptions(params?: { token?: string; namespace?: string; }): Promise<CdnVariantOptionsResponse>;",
+      "swift": "getVariantOptions",
+      "sources": "CDNAPI"
+    },
+    "cdn.d.ts:Cdn.list": {
+      "signature": "list(params?: CdnListParams): Promise<CdnListResponse>;",
+      "swift": "list",
+      "sources": "CDNAPI"
+    },
+    "cdn.d.ts:Cdn.tags": {
+      "signature": "tags(params?: CdnTagsParams): Promise<CdnTagsResponse>;",
+      "swift": "tags",
+      "sources": "CDNAPI"
+    },
+    "cdn.d.ts:Cdn.stats": {
+      "signature": "stats(params?: CdnStatsParams): Promise<CdnStatsResponse>;",
+      "swift": "stats",
+      "sources": "CDNAPI"
+    },
+    "cdn.d.ts:Cdn.usage": {
+      "signature": "usage(params?: CdnUsageParams): Promise<CdnUsageResponse>;",
+      "swift": "usage",
+      "sources": "CDNAPI"
+    },
+    "cdn.d.ts:Cdn.usageSeries": {
+      "signature": "usageSeries(params?: CdnUsageSeriesParams): Promise<CdnUsageSeriesResponse>;",
+      "swift": "usageSeries",
+      "sources": "CDNAPI"
+    },
+    "cdn.d.ts:Cdn.quotaDefaults": {
+      "signature": "quotaDefaults(): Promise<CdnQuotaDefaultsResponse>;",
+      "swift": "quotaDefaults",
+      "sources": "CDNAPI"
+    },
+    "cdn.d.ts:Cdn.setQuotaDefaults": {
+      "signature": "setQuotaDefaults(caps: Partial<CdnCaps>): Promise<CdnQuotaDefaultsResponse>;",
+      "swift": "setQuotaDefaults",
+      "sources": "CDNAPI"
+    },
+    "cdn.d.ts:Cdn.namespaces": {
+      "signature": "namespaces(params?: CdnNamespacesParams): Promise<CdnNamespacesResponse>;",
+      "swift": "namespaces",
+      "sources": "CDNAPI"
+    },
+    "cdn.d.ts:Cdn.setNamespaceQuota": {
+      "signature": "setNamespaceQuota(namespace: string, caps: Partial<CdnCaps>): Promise<CdnNamespaceQuotaResponse>;",
+      "swift": "setNamespaceQuota",
+      "sources": "CDNAPI"
+    },
+    "cdn.d.ts:Cdn.get": {
+      "signature": "get(fileId: number | string): Promise<CdnFileResponse>;",
+      "swift": "get",
+      "sources": "CDNAPI"
+    },
+    "cdn.d.ts:Cdn.delete": {
+      "signature": "delete(fileId: number | string): Promise<ApiResponse>;",
+      "swift": "delete",
+      "sources": "CDNAPI"
+    },
+    "cdn.d.ts:Cdn.restore": {
+      "signature": "restore(fileId: number | string): Promise<ApiResponse>;",
+      "swift": "restore",
+      "sources": "CDNAPI"
+    },
+    "cdn.d.ts:CdnDomains.add": {
+      "signature": "add(params: CdnDomainAddParams): Promise<CdnDomainAddResponse>;",
+      "swift": "add",
+      "sources": "CDNAPI"
+    },
+    "cdn.d.ts:CdnDomains.list": {
+      "signature": "list(params?: CdnDomainListParams): Promise<CdnDomainListResponse>;",
+      "swift": "list",
+      "sources": "CDNAPI"
+    },
+    "cdn.d.ts:CdnDomains.remove": {
+      "signature": "remove(domain: string): Promise<CdnDomainRemoveResponse>;",
+      "swift": "remove",
+      "sources": "CDNAPI"
+    },
+    "client.d.ts:Oblien.sites": {
+      "signature": "get sites(): Pages;",
+      "swift": "sites",
+      "sources": "OblienClient PagesAPI"
+    },
+    "client.d.ts:Oblien.setToken": {
+      "signature": "setToken(token: string): void;",
+      "swift": "setToken",
+      "sources": "OblienClient PagesAPI"
+    },
+    "client.d.ts:Oblien.restoreAuth": {
+      "signature": "restoreAuth(): void;",
+      "swift": "restoreAuth",
+      "sources": "OblienClient PagesAPI"
+    },
+    "client.d.ts:Oblien.workspace": {
+      "signature": "workspace(workspaceId: string): WorkspaceHandle;",
+      "swift": "workspace",
+      "sources": "OblienClient PagesAPI"
+    },
+    "domain.d.ts:Domain.checkSlug": {
+      "signature": "checkSlug(params: CheckSlugParams): Promise<CheckSlugResponse>;",
+      "swift": "checkSlug",
+      "sources": "AccountDomainsAPI"
+    },
+    "domain.d.ts:Domain.verify": {
+      "signature": "verify(params: VerifyDomainParams): Promise<VerifyDomainResponse>;",
+      "swift": "verify",
+      "sources": "AccountDomainsAPI"
+    },
+    "domain.d.ts:Domain.routes": {
+      "signature": "routes(params?: DomainListParams): Promise<DomainRoutesResponse>;",
+      "swift": "routes",
+      "sources": "AccountDomainsAPI"
+    },
+    "domain.d.ts:Domain.ssls": {
+      "signature": "ssls(params?: DomainListParams): Promise<SslListResponse>;",
+      "swift": "ssls",
+      "sources": "AccountDomainsAPI"
+    },
+    "domain.d.ts:Domain.setSslAutoRenew": {
+      "signature": "setSslAutoRenew(domain: string, enabled: boolean): Promise<SslAutoRenewResponse>;",
+      "swift": "setSslAutoRenew",
+      "sources": "AccountDomainsAPI"
+    },
+    "edge-proxy.d.ts:EdgeProxy.list": {
+      "signature": "list(): Promise<EdgeProxyListResponse>;",
+      "swift": "list",
+      "sources": "EdgeAPI"
+    },
+    "edge-proxy.d.ts:EdgeProxy.get": {
+      "signature": "get(proxyId: number): Promise<ApiResponse & { proxy: EdgeProxyData; }>;",
+      "swift": "get",
+      "sources": "EdgeAPI"
+    },
+    "edge-proxy.d.ts:EdgeProxy.create": {
+      "signature": "create(params: EdgeProxyCreateParams): Promise<ApiResponse & { proxy: EdgeProxyData; }>;",
+      "swift": "create",
+      "sources": "EdgeAPI"
+    },
+    "edge-proxy.d.ts:EdgeProxy.update": {
+      "signature": "update(proxyId: number, params: EdgeProxyUpdateParams): Promise<ApiResponse & { proxy: EdgeProxyData; }>;",
+      "swift": "update",
+      "sources": "EdgeAPI"
+    },
+    "edge-proxy.d.ts:EdgeProxy.enable": {
+      "signature": "enable(proxyId: number): Promise<ApiResponse & { proxy: EdgeProxyData; }>;",
+      "swift": "enable",
+      "sources": "EdgeAPI"
+    },
+    "edge-proxy.d.ts:EdgeProxy.disable": {
+      "signature": "disable(proxyId: number): Promise<ApiResponse & { proxy: EdgeProxyData; }>;",
+      "swift": "disable",
+      "sources": "EdgeAPI"
+    },
+    "edge-proxy.d.ts:EdgeProxy.delete": {
+      "signature": "delete(proxyId: number): Promise<ApiResponse>;",
+      "swift": "delete",
+      "sources": "EdgeAPI"
+    },
+    "edge-proxy.d.ts:EdgeProxy.requestVerification": {
+      "signature": "requestVerification(target: string): Promise<ApiResponse & { verification: EdgeProxyVerificationChallenge; }>;",
+      "swift": "requestVerification",
+      "sources": "EdgeAPI"
+    },
+    "edge-proxy.d.ts:EdgeProxy.listVerifications": {
+      "signature": "listVerifications(): Promise<EdgeProxyVerificationListResponse>;",
+      "swift": "listVerifications",
+      "sources": "EdgeAPI"
+    },
+    "edge-proxy.d.ts:EdgeProxy.checkVerification": {
+      "signature": "checkVerification(verificationId: number): Promise<ApiResponse & { verification: EdgeProxyVerificationCheckResult; }>;",
+      "swift": "checkVerification",
+      "sources": "EdgeAPI"
+    },
+    "edge-proxy.d.ts:EdgeProxy.deleteVerification": {
+      "signature": "deleteVerification(verificationId: number): Promise<ApiResponse>;",
+      "swift": "deleteVerification",
+      "sources": "EdgeAPI"
+    },
+    "edge-tunnel.d.ts:EdgeTunnel.list": {
+      "signature": "list(): Promise<EdgeTunnelListResponse>;",
+      "swift": "list",
+      "sources": "EdgeAPI"
+    },
+    "edge-tunnel.d.ts:EdgeTunnel.get": {
+      "signature": "get(tunnelId: number): Promise<ApiResponse & { tunnel: EdgeTunnelData; }>;",
+      "swift": "get",
+      "sources": "EdgeAPI"
+    },
+    "edge-tunnel.d.ts:EdgeTunnel.create": {
+      "signature": "create(params: EdgeTunnelCreateParams): Promise<ApiResponse & { tunnel: EdgeTunnelData; }>;",
+      "swift": "create",
+      "sources": "EdgeAPI"
+    },
+    "edge-tunnel.d.ts:EdgeTunnel.checkDomain": {
+      "signature": "checkDomain(params: EdgeTunnelCheckDomainParams): Promise<EdgeTunnelCheckDomainResponse>;",
+      "swift": "checkDomain",
+      "sources": "EdgeAPI"
+    },
+    "edge-tunnel.d.ts:EdgeTunnel.update": {
+      "signature": "update(tunnelId: number, params: EdgeTunnelUpdateParams): Promise<ApiResponse & { tunnel: EdgeTunnelData; }>;",
+      "swift": "update",
+      "sources": "EdgeAPI"
+    },
+    "edge-tunnel.d.ts:EdgeTunnel.enable": {
+      "signature": "enable(tunnelId: number): Promise<ApiResponse & { tunnel: EdgeTunnelData; }>;",
+      "swift": "enable",
+      "sources": "EdgeAPI"
+    },
+    "edge-tunnel.d.ts:EdgeTunnel.disable": {
+      "signature": "disable(tunnelId: number): Promise<ApiResponse & { tunnel: EdgeTunnelData; }>;",
+      "swift": "disable",
+      "sources": "EdgeAPI"
+    },
+    "edge-tunnel.d.ts:EdgeTunnel.delete": {
+      "signature": "delete(tunnelId: number): Promise<ApiResponse>;",
+      "swift": "delete",
+      "sources": "EdgeAPI"
+    },
+    "edge-tunnel.d.ts:EdgeTunnel.renewSSL": {
+      "signature": "renewSSL(tunnelId: number): Promise<EdgeTunnelSSLRenewResponse>;",
+      "swift": "renewSSL",
+      "sources": "EdgeAPI"
+    },
+    "edge-tunnel.d.ts:EdgeTunnel.issueToken": {
+      "signature": "issueToken(tunnelId: number, options?: EdgeTunnelIssueTokenParams): Promise<EdgeTunnelTokenResponse>;",
+      "swift": "issueToken",
+      "sources": "EdgeAPI"
+    },
+    "edge-tunnel.d.ts:EdgeTunnel.connect": {
+      "signature": "connect(params: EdgeTunnelCreateParams, connectOpts?: Partial<Pick<TunnelClientOptions, 'localPort' | 'minTokenTtlMs' | 'tokenExpiresAt'>>): Promise<TunnelClient & { url: string; tunnelId: number; }>;",
+      "boundary": "Node local-port tunnel host; management and renewable tunnel grants are in EdgeTunnelAPI."
+    },
+    "namespace.d.ts:Namespace.create": {
+      "signature": "create(params: NamespaceCreateParams): Promise<ApiResponse & { data: NamespaceData; }>;",
+      "swift": "create",
+      "sources": "NamespacesAPI"
+    },
+    "namespace.d.ts:Namespace.ensure": {
+      "signature": "ensure(params: NamespaceEnsureParams): Promise<NamespaceEnsureResponse>;",
+      "swift": "ensure",
+      "sources": "NamespacesAPI"
+    },
+    "namespace.d.ts:Namespace.list": {
+      "signature": "list(params?: NamespaceListParams): Promise<NamespaceListResponse>;",
+      "swift": "list",
+      "sources": "NamespacesAPI"
+    },
+    "namespace.d.ts:Namespace.get": {
+      "signature": "get(idOrSlug: string): Promise<ApiResponse & { data: NamespaceData; }>;",
+      "swift": "get",
+      "sources": "NamespacesAPI"
+    },
+    "namespace.d.ts:Namespace.update": {
+      "signature": "update(id: string, params: NamespaceUpdateParams): Promise<ApiResponse & { data: NamespaceData; }>;",
+      "swift": "update",
+      "sources": "NamespacesAPI"
+    },
+    "namespace.d.ts:Namespace.delete": {
+      "signature": "delete(id: string, params?: NamespaceDeleteParams): Promise<ApiResponse>;",
+      "swift": "delete",
+      "sources": "NamespacesAPI"
+    },
+    "namespace.d.ts:Namespace.suspend": {
+      "signature": "suspend(id: string): Promise<ApiResponse>;",
+      "swift": "suspend",
+      "sources": "NamespacesAPI"
+    },
+    "namespace.d.ts:Namespace.activate": {
+      "signature": "activate(id: string): Promise<ApiResponse>;",
+      "swift": "activate",
+      "sources": "NamespacesAPI"
+    },
+    "namespace.d.ts:Namespace.stopWorkspaces": {
+      "signature": "stopWorkspaces(id: string): Promise<ApiResponse>;",
+      "swift": "stopWorkspaces",
+      "sources": "NamespacesAPI"
+    },
+    "namespace.d.ts:Namespace.activity": {
+      "signature": "activity(id: string, params?: NamespaceActivityParams): Promise<ApiResponse>;",
+      "swift": "activity",
+      "sources": "NamespacesAPI"
+    },
+    "namespace.d.ts:Namespace.usage": {
+      "signature": "usage(id: string, params?: NamespaceUsageParams): Promise<ApiResponse>;",
+      "swift": "usage",
+      "sources": "NamespacesAPI"
+    },
+    "namespace.d.ts:Namespace.usageUnits": {
+      "signature": "usageUnits(id: string, params?: NamespaceUsageUnitsParams): Promise<ApiResponse & { data: NamespaceUsageUnits; }>;",
+      "swift": "usageUnits",
+      "sources": "NamespacesAPI"
+    },
+    "namespace.d.ts:Namespace.setQuota": {
+      "signature": "setQuota(params: SetNamespaceQuotaParams): Promise<ApiResponse>;",
+      "swift": "setQuota",
+      "sources": "NamespacesAPI"
+    },
+    "namespace.d.ts:Namespace.resetQuota": {
+      "signature": "resetQuota(params: ResetNamespaceQuotaParams): Promise<ApiResponse>;",
+      "swift": "resetQuota",
+      "sources": "NamespacesAPI"
+    },
+    "namespace.d.ts:Namespace.listWithQuotas": {
+      "signature": "listWithQuotas(params?: NamespaceListWithQuotasParams): Promise<ApiResponse>;",
+      "swift": "listWithQuotas",
+      "sources": "NamespacesAPI"
+    },
+    "namespace.d.ts:Namespace.getDetails": {
+      "signature": "getDetails(namespace: string, params?: NamespaceDetailsParams): Promise<ApiResponse>;",
+      "swift": "getDetails",
+      "sources": "NamespacesAPI"
+    },
+    "namespace.d.ts:Namespace.setDefaultQuota": {
+      "signature": "setDefaultQuota(params: SetDefaultQuotaParams): Promise<ApiResponse>;",
+      "swift": "setDefaultQuota",
+      "sources": "NamespacesAPI"
+    },
+    "namespace.d.ts:Namespace.getDefaultQuota": {
+      "signature": "getDefaultQuota(service: string): Promise<ApiResponse>;",
+      "swift": "getDefaultQuota",
+      "sources": "NamespacesAPI"
+    },
+    "namespace.d.ts:Namespace.getAllDefaultQuotas": {
+      "signature": "getAllDefaultQuotas(): Promise<ApiResponse>;",
+      "swift": "getAllDefaultQuotas",
+      "sources": "NamespacesAPI"
+    },
+    "namespace.d.ts:Namespace.deleteDefaultQuota": {
+      "signature": "deleteDefaultQuota(service: string): Promise<ApiResponse>;",
+      "swift": "deleteDefaultQuota",
+      "sources": "NamespacesAPI"
+    },
+    "namespace.d.ts:Namespace.toggleDefaultQuotaAutoApply": {
+      "signature": "toggleDefaultQuotaAutoApply(service: string, autoApply: boolean): Promise<ApiResponse>;",
+      "swift": "toggleDefaultQuotaAutoApply",
+      "sources": "NamespacesAPI"
+    },
+    "notifications.d.ts:Notifications.registerDevice": {
+      "signature": "registerDevice(params: RegisterDeviceParams): Promise<ApiResponse & { device: PushDevice; }>;",
+      "swift": "registerDevice",
+      "sources": "NotificationsAPI"
+    },
+    "notifications.d.ts:Notifications.listDevices": {
+      "signature": "listDevices(): Promise<PushDeviceListResponse>;",
+      "swift": "listDevices",
+      "sources": "NotificationsAPI"
+    },
+    "notifications.d.ts:Notifications.removeDevice": {
+      "signature": "removeDevice(deviceId: number): Promise<ApiResponse>;",
+      "swift": "removeDevice",
+      "sources": "NotificationsAPI"
+    },
+    "notifications.d.ts:Notifications.createToken": {
+      "signature": "createToken(params: CreatePushTokenParams): Promise<ApiResponse & { token: CreatedWorkspacePushToken; }>;",
+      "swift": "createToken",
+      "sources": "NotificationsAPI"
+    },
+    "notifications.d.ts:Notifications.listTokens": {
+      "signature": "listTokens(workspaceId?: string): Promise<PushTokenListResponse>;",
+      "swift": "listTokens",
+      "sources": "NotificationsAPI"
+    },
+    "notifications.d.ts:Notifications.revokeToken": {
+      "signature": "revokeToken(tokenId: number): Promise<ApiResponse>;",
+      "swift": "revokeToken",
+      "sources": "NotificationsAPI"
+    },
+    "notifications.d.ts:Notifications.deleteToken": {
+      "signature": "deleteToken(tokenId: number): Promise<ApiResponse>;",
+      "swift": "deleteToken",
+      "sources": "NotificationsAPI"
+    },
+    "notifications.d.ts:Notifications.send": {
+      "signature": "send(token: string, params: SendNotificationParams): Promise<SendNotificationResponse>;",
+      "swift": "send",
+      "sources": "NotificationsAPI"
+    },
+    "pages.d.ts:Pages.list": {
+      "signature": "list(): Promise<PageListResponse>;",
+      "swift": "list",
+      "sources": "PagesAPI"
+    },
+    "pages.d.ts:Pages.get": {
+      "signature": "get(slug: string): Promise<ApiResponse & { page: PageData; }>;",
+      "swift": "get",
+      "sources": "PagesAPI"
+    },
+    "pages.d.ts:Pages.create": {
+      "signature": "create(params: PageCreateParams): Promise<ApiResponse & { page: PageData; }>;",
+      "swift": "create",
+      "sources": "PagesAPI"
+    },
+    "pages.d.ts:Pages.deploy": {
+      "signature": "deploy(slug: string, params: PageDeployParams): Promise<ApiResponse & { page: PageData; }>;",
+      "swift": "deploy",
+      "sources": "PagesAPI"
+    },
+    "pages.d.ts:Pages.update": {
+      "signature": "update(slug: string, params: PageUpdateParams): Promise<ApiResponse & { page: PageData; }>;",
+      "swift": "update",
+      "sources": "PagesAPI"
+    },
+    "pages.d.ts:Pages.enable": {
+      "signature": "enable(slug: string): Promise<ApiResponse & { page: PageData; }>;",
+      "swift": "enable",
+      "sources": "PagesAPI"
+    },
+    "pages.d.ts:Pages.disable": {
+      "signature": "disable(slug: string): Promise<ApiResponse & { page: PageData; }>;",
+      "swift": "disable",
+      "sources": "PagesAPI"
+    },
+    "pages.d.ts:Pages.delete": {
+      "signature": "delete(slug: string): Promise<ApiResponse>;",
+      "swift": "delete",
+      "sources": "PagesAPI"
+    },
+    "pages.d.ts:Pages.getDomain": {
+      "signature": "getDomain(slug: string): Promise<ApiResponse & { domain: PageDomainResponse | null; }>;",
+      "swift": "getDomain",
+      "sources": "PagesAPI"
+    },
+    "pages.d.ts:Pages.connectDomain": {
+      "signature": "connectDomain(slug: string, params: { domain: string; includeWww?: boolean; }): Promise<ApiResponse & PageDomainResponse>;",
+      "swift": "connectDomain",
+      "sources": "PagesAPI"
+    },
+    "pages.d.ts:Pages.disconnectDomain": {
+      "signature": "disconnectDomain(slug: string): Promise<ApiResponse>;",
+      "swift": "disconnectDomain",
+      "sources": "PagesAPI"
+    },
+    "pages.d.ts:Pages.checkDNS": {
+      "signature": "checkDNS(slug: string, params: { domain: string; }): Promise<ApiResponse & PageDNSCheckResponse>;",
+      "swift": "checkDNS",
+      "sources": "PagesAPI"
+    },
+    "pages.d.ts:Pages.renewSSL": {
+      "signature": "renewSSL(slug: string): Promise<ApiResponse & PageSSLRenewResponse>;",
+      "swift": "renewSSL",
+      "sources": "PagesAPI"
+    },
+    "pages.d.ts:Pages.setRoutes": {
+      "signature": "setRoutes(slug: string, input: PageRoutesInput): Promise<PageRoutesResponse>;",
+      "swift": "setRoutes",
+      "sources": "PagesAPI"
+    },
+    "pages.d.ts:Pages.getRoutes": {
+      "signature": "getRoutes(slug: string): Promise<PageRoutesGetResponse>;",
+      "swift": "getRoutes",
+      "sources": "PagesAPI"
+    },
+    "pages.d.ts:Pages.rollbackRoutes": {
+      "signature": "rollbackRoutes(slug: string, version: number): Promise<PageRoutesResponse>;",
+      "swift": "rollbackRoutes",
+      "sources": "PagesAPI"
+    },
+    "routes.d.ts:Routes.set": {
+      "signature": "set(hostname: string, input: RoutesInput): Promise<RoutesResult>;",
+      "swift": "set",
+      "sources": "PagesAPI"
+    },
+    "routes.d.ts:Routes.get": {
+      "signature": "get(hostname: string): Promise<RoutesGetResponse>;",
+      "swift": "get",
+      "sources": "PagesAPI"
+    },
+    "routes.d.ts:Routes.rollback": {
+      "signature": "rollback(hostname: string, version: number): Promise<RoutesResult>;",
+      "swift": "rollback",
+      "sources": "PagesAPI"
+    },
+    "runtime.d.ts:Runtime.info": {
+      "signature": "info(): Promise<RuntimeInfo>;",
+      "swift": "info",
+      "sources": "RuntimeClient"
+    },
+    "runtime.d.ts:Runtime.targets": {
+      "signature": "targets(): Promise<RuntimeDiscovery>;",
+      "swift": "targets",
+      "sources": "RuntimeClient"
+    },
+    "runtime.d.ts:Runtime.forTarget": {
+      "signature": "forTarget(target: string): Runtime;",
+      "swift": "forTarget",
+      "sources": "RuntimeClient"
+    },
+    "runtime.d.ts:Runtime.health": {
+      "signature": "health(): Promise<boolean>;",
+      "swift": "health",
+      "sources": "RuntimeClient"
+    },
+    "runtime.d.ts:Runtime.ws": {
+      "signature": "ws(options?: WSOptions): RuntimeWebSocket;",
+      "swift": "ws",
+      "sources": "RuntimeClient"
+    },
+    "runtime.d.ts:Runtime.proxy": {
+      "signature": "proxy(port: number, host?: string): RuntimeProxy;",
+      "swift": "proxy",
+      "sources": "RuntimeClient"
+    },
+    "tokens.d.ts:Tokens.create": {
+      "signature": "create(params: TokenCreateParams): Promise<TokenCreateResponse>;",
+      "swift": "create",
+      "sources": "SubAPIs"
+    },
+    "webhooks.d.ts:Webhooks.list": {
+      "signature": "list(params?: WebhookListParams): Promise<WebhookListResponse>;",
+      "swift": "list",
+      "sources": "WebhooksAPI"
+    },
+    "webhooks.d.ts:Webhooks.events": {
+      "signature": "events(): Promise<WebhookEventsResponse>;",
+      "swift": "events",
+      "sources": "WebhooksAPI"
+    },
+    "webhooks.d.ts:Webhooks.create": {
+      "signature": "create(params: WebhookCreateParams): Promise<ApiResponse & { webhook: Webhook; }>;",
+      "swift": "create",
+      "sources": "WebhooksAPI"
+    },
+    "webhooks.d.ts:Webhooks.update": {
+      "signature": "update(id: number, params: WebhookUpdateParams): Promise<ApiResponse & { webhook: Webhook; }>;",
+      "swift": "update",
+      "sources": "WebhooksAPI"
+    },
+    "webhooks.d.ts:Webhooks.delete": {
+      "signature": "delete(id: number): Promise<ApiResponse>;",
+      "swift": "delete",
+      "sources": "WebhooksAPI"
+    },
+    "workspace-handle.d.ts:WorkspaceHandle.get": {
+      "signature": "get(): Promise<WorkspaceData>;",
+      "swift": "get",
+      "sources": "WorkspaceHandle WorkspaceOptions"
+    },
+    "workspace-handle.d.ts:WorkspaceHandle.waitUntilReady": {
+      "signature": "waitUntilReady(options?: WorkspaceWaitOptions): Promise<WorkspaceData>;",
+      "swift": "waitUntilReady",
+      "sources": "WorkspaceHandle WorkspaceOptions"
+    },
+    "workspace-handle.d.ts:WorkspaceHandle.retryCreation": {
+      "signature": "retryCreation(): Promise<WorkspaceData>;",
+      "swift": "retryCreation",
+      "sources": "WorkspaceHandle WorkspaceOptions"
+    },
+    "workspace-handle.d.ts:WorkspaceHandle.update": {
+      "signature": "update(params: WorkspaceUpdateParams): Promise<WorkspaceData>;",
+      "swift": "update",
+      "sources": "WorkspaceHandle WorkspaceOptions"
+    },
+    "workspace-handle.d.ts:WorkspaceHandle.delete": {
+      "signature": "delete(): Promise<ApiResponse>;",
+      "swift": "delete",
+      "sources": "WorkspaceHandle WorkspaceOptions"
+    },
+    "workspace-handle.d.ts:WorkspaceHandle.getDetails": {
+      "signature": "getDetails(): Promise<ApiResponse>;",
+      "swift": "getDetails",
+      "sources": "WorkspaceHandle WorkspaceOptions"
+    },
+    "workspace-handle.d.ts:WorkspaceHandle.start": {
+      "signature": "start(params?: { force?: boolean; }): Promise<ApiResponse>;",
+      "swift": "start",
+      "sources": "WorkspaceHandle WorkspaceOptions"
+    },
+    "workspace-handle.d.ts:WorkspaceHandle.stop": {
+      "signature": "stop(): Promise<ApiResponse>;",
+      "swift": "stop",
+      "sources": "WorkspaceHandle WorkspaceOptions"
+    },
+    "workspace-handle.d.ts:WorkspaceHandle.restart": {
+      "signature": "restart(): Promise<ApiResponse>;",
+      "swift": "restart",
+      "sources": "WorkspaceHandle WorkspaceOptions"
+    },
+    "workspace-handle.d.ts:WorkspaceHandle.pause": {
+      "signature": "pause(): Promise<ApiResponse>;",
+      "swift": "pause",
+      "sources": "WorkspaceHandle WorkspaceOptions"
+    },
+    "workspace-handle.d.ts:WorkspaceHandle.resume": {
+      "signature": "resume(): Promise<ApiResponse>;",
+      "swift": "resume",
+      "sources": "WorkspaceHandle WorkspaceOptions"
+    },
+    "workspace-handle.d.ts:WorkspaceHandle.ping": {
+      "signature": "ping(params?: { ttl_seconds?: number; }): Promise<ApiResponse>;",
+      "swift": "ping",
+      "sources": "WorkspaceHandle WorkspaceOptions"
+    },
+    "workspace-handle.d.ts:WorkspaceHandle.runtime": {
+      "signature": "runtime(options?: { force?: boolean; target?: string; }): Promise<Runtime>;",
+      "swift": "runtime",
+      "sources": "WorkspaceHandle WorkspaceOptions"
+    },
+    "workspace-handle.d.ts:WorkspaceHandle.invalidateRuntime": {
+      "signature": "invalidateRuntime(): void;",
+      "swift": "invalidateRuntime",
+      "sources": "WorkspaceHandle WorkspaceOptions"
+    },
+    "workspace.d.ts:Workspace.create": {
+      "signature": "create(params?: WorkspaceCreateParams, options?: WorkspaceWaitOptions): Promise<WorkspaceData>;",
+      "swift": "create",
+      "sources": "WorkspacesAPI WorkspaceHandle Extras"
+    },
+    "workspace.d.ts:Workspace.waitUntilReady": {
+      "signature": "waitUntilReady(workspaceId: string, options?: WorkspaceWaitOptions): Promise<WorkspaceData>;",
+      "swift": "waitUntilReady",
+      "sources": "WorkspacesAPI WorkspaceHandle Extras"
+    },
+    "workspace.d.ts:Workspace.retryCreation": {
+      "signature": "retryCreation(workspaceId: string): Promise<WorkspaceData>;",
+      "swift": "retryCreation",
+      "sources": "WorkspacesAPI WorkspaceHandle Extras"
+    },
+    "workspace.d.ts:Workspace.list": {
+      "signature": "list(params?: WorkspaceListParams): Promise<WorkspaceListResponse>;",
+      "swift": "list",
+      "sources": "WorkspacesAPI WorkspaceHandle Extras"
+    },
+    "workspace.d.ts:Workspace.get": {
+      "signature": "get(workspaceId: string): Promise<WorkspaceData>;",
+      "swift": "get",
+      "sources": "WorkspacesAPI WorkspaceHandle Extras"
+    },
+    "workspace.d.ts:Workspace.update": {
+      "signature": "update(workspaceId: string, params: WorkspaceUpdateParams): Promise<WorkspaceData>;",
+      "swift": "update",
+      "sources": "WorkspacesAPI WorkspaceHandle Extras"
+    },
+    "workspace.d.ts:Workspace.delete": {
+      "signature": "delete(workspaceId: string): Promise<ApiResponse>;",
+      "swift": "delete",
+      "sources": "WorkspacesAPI WorkspaceHandle Extras"
+    },
+    "workspace.d.ts:Workspace.getDetails": {
+      "signature": "getDetails(workspaceId: string): Promise<ApiResponse>;",
+      "swift": "getDetails",
+      "sources": "WorkspacesAPI WorkspaceHandle Extras"
+    },
+    "workspace.d.ts:Workspace.start": {
+      "signature": "start(workspaceId: string, params?: { force?: boolean; }): Promise<ApiResponse>;",
+      "swift": "start",
+      "sources": "WorkspacesAPI WorkspaceHandle Extras"
+    },
+    "workspace.d.ts:Workspace.stop": {
+      "signature": "stop(workspaceId: string): Promise<ApiResponse>;",
+      "swift": "stop",
+      "sources": "WorkspacesAPI WorkspaceHandle Extras"
+    },
+    "workspace.d.ts:Workspace.restart": {
+      "signature": "restart(workspaceId: string): Promise<ApiResponse>;",
+      "swift": "restart",
+      "sources": "WorkspacesAPI WorkspaceHandle Extras"
+    },
+    "workspace.d.ts:Workspace.pause": {
+      "signature": "pause(workspaceId: string): Promise<ApiResponse>;",
+      "swift": "pause",
+      "sources": "WorkspacesAPI WorkspaceHandle Extras"
+    },
+    "workspace.d.ts:Workspace.resume": {
+      "signature": "resume(workspaceId: string): Promise<ApiResponse>;",
+      "swift": "resume",
+      "sources": "WorkspacesAPI WorkspaceHandle Extras"
+    },
+    "workspace.d.ts:Workspace.ping": {
+      "signature": "ping(workspaceId: string, params?: { ttl_seconds?: number; }): Promise<ApiResponse>;",
+      "swift": "ping",
+      "sources": "WorkspacesAPI WorkspaceHandle Extras"
+    },
+    "workspace.d.ts:Workspace.getQuota": {
+      "signature": "getQuota(): Promise<ApiResponse>;",
+      "swift": "getQuota",
+      "sources": "WorkspacesAPI WorkspaceHandle Extras"
+    },
+    "workspace.d.ts:Workspace.getEstimate": {
+      "signature": "getEstimate(params?: { cpu?: number; ram_mb?: number; disk_mb?: number; }): Promise<ApiResponse>;",
+      "swift": "getEstimate",
+      "sources": "WorkspacesAPI WorkspaceHandle Extras"
+    },
+    "workspace.d.ts:Workspace.runtime": {
+      "signature": "runtime(workspaceId: string, options?: { force?: boolean; target?: string; }): Promise<Runtime>;",
+      "swift": "runtime",
+      "sources": "WorkspacesAPI WorkspaceHandle Extras"
+    },
+    "workspace.d.ts:Workspace.setTokenTtl": {
+      "signature": "setTokenTtl(ms: number): void;",
+      "swift": "setTokenTTL",
+      "sources": "WorkspacesAPI WorkspaceHandle Extras"
+    },
+    "workspace.d.ts:Workspace.invalidateRuntime": {
+      "signature": "invalidateRuntime(workspaceId: string): void;",
+      "swift": "invalidateRuntime",
+      "sources": "WorkspacesAPI WorkspaceHandle Extras"
+    },
+    "workspace.d.ts:Workspace.invalidateAllRuntimes": {
+      "signature": "invalidateAllRuntimes(): void;",
+      "swift": "invalidateAllRuntimes",
+      "sources": "WorkspacesAPI WorkspaceHandle Extras"
+    },
+    "resources/api-access.d.ts:ApiAccessResource.status": {
+      "signature": "status(workspaceId: string): Promise<ApiAccessStatus>;",
+      "swift": "status",
+      "sources": "SubAPIs"
+    },
+    "resources/api-access.d.ts:ApiAccessResource.enable": {
+      "signature": "enable(workspaceId: string): Promise<ApiAccessStatus>;",
+      "swift": "enable",
+      "sources": "SubAPIs"
+    },
+    "resources/api-access.d.ts:ApiAccessResource.disable": {
+      "signature": "disable(workspaceId: string): Promise<ApiResponse>;",
+      "swift": "disable",
+      "sources": "SubAPIs"
+    },
+    "resources/api-access.d.ts:ApiAccessResource.rotateToken": {
+      "signature": "rotateToken(workspaceId: string): Promise<ApiAccessStatus>;",
+      "swift": "rotateToken",
+      "sources": "SubAPIs"
+    },
+    "resources/api-access.d.ts:ApiAccessResource.getToken": {
+      "signature": "getToken(workspaceId: string): Promise<ApiAccessStatus>;",
+      "swift": "getToken",
+      "sources": "SubAPIs"
+    },
+    "resources/api-access.d.ts:ApiAccessResource.rawToken": {
+      "signature": "rawToken(workspaceId: string): Promise<RawTokenResponse>;",
+      "swift": "rawToken",
+      "sources": "SubAPIs"
+    },
+    "resources/desktop.d.ts:DesktopResource.install": {
+      "signature": "install(workspaceId: string): Promise<DesktopInstallation>;",
+      "swift": "install",
+      "sources": "DesktopAPI"
+    },
+    "resources/desktop.d.ts:DesktopResource.installation": {
+      "signature": "installation(workspaceId: string): Promise<DesktopInstallation>;",
+      "swift": "installation",
+      "sources": "DesktopAPI"
+    },
+    "resources/desktop.d.ts:DesktopResource.sshConnection": {
+      "signature": "sshConnection(workspaceId: string): Promise<DesktopSshConnection>;",
+      "swift": "sshConnection",
+      "sources": "DesktopAPI"
+    },
+    "resources/domains.d.ts:DomainsResource.get": {
+      "signature": "get(workspaceId: string): Promise<DomainInfo | null>;",
+      "swift": "get",
+      "sources": "DomainsAPI"
+    },
+    "resources/domains.d.ts:DomainsResource.connect": {
+      "signature": "connect(workspaceId: string, params: ConnectDomainParams): Promise<ConnectDomainResponse>;",
+      "swift": "set",
+      "sources": "DomainsAPI"
+    },
+    "resources/domains.d.ts:DomainsResource.disconnect": {
+      "signature": "disconnect(workspaceId: string): Promise<ApiResponse>;",
+      "swift": "remove",
+      "sources": "DomainsAPI"
+    },
+    "resources/domains.d.ts:DomainsResource.checkDNS": {
+      "signature": "checkDNS(workspaceId: string, params: CheckDNSParams): Promise<CheckDNSResponse>;",
+      "swift": "check",
+      "sources": "DomainsAPI"
+    },
+    "resources/domains.d.ts:DomainsResource.renewSSL": {
+      "signature": "renewSSL(workspaceId: string): Promise<RenewSSLResponse>;",
+      "swift": "renewSSL",
+      "sources": "DomainsAPI"
+    },
+    "resources/images.d.ts:ImagesResource.list": {
+      "signature": "list(params?: ImagesListParams): Promise<ImagesListResponse>;",
+      "swift": "images",
+      "sources": "WorkspacesAPI"
+    },
+    "resources/lifecycle.d.ts:LifecycleResource.get": {
+      "signature": "get(workspaceId: string): Promise<LifecycleStatus>;",
+      "swift": "get",
+      "sources": "LifecycleAPI"
+    },
+    "resources/lifecycle.d.ts:LifecycleResource.destroy": {
+      "signature": "destroy(workspaceId: string): Promise<ApiResponse>;",
+      "swift": "destroy",
+      "sources": "LifecycleAPI"
+    },
+    "resources/lifecycle.d.ts:LifecycleResource.makePermanent": {
+      "signature": "makePermanent(workspaceId: string, params?: { restart_policy?: string; }): Promise<ApiResponse>;",
+      "swift": "makePermanent",
+      "sources": "LifecycleAPI"
+    },
+    "resources/lifecycle.d.ts:LifecycleResource.setIdle": {
+      "signature": "setIdle(workspaceId: string, policy: IdlePolicy | null): Promise<ApiResponse & { idle: { suspend_after: number; stop_after: number; } | null; }>;",
+      "swift": "setIdle",
+      "sources": "LifecycleAPI"
+    },
+    "resources/lifecycle.d.ts:LifecycleResource.makeTemporary": {
+      "signature": "makeTemporary(workspaceId: string, params?: MakeTemporaryParams): Promise<ApiResponse>;",
+      "swift": "makeTemporary",
+      "sources": "LifecycleAPI"
+    },
+    "resources/lifecycle.d.ts:LifecycleResource.updateTtl": {
+      "signature": "updateTtl(workspaceId: string, params: UpdateTtlParams): Promise<ApiResponse>;",
+      "swift": "updateTTL",
+      "sources": "LifecycleAPI"
+    },
+    "resources/lifecycle.d.ts:LifecycleResource.ping": {
+      "signature": "ping(workspaceId: string, params?: { ttl_seconds?: number; }): Promise<ApiResponse>;",
+      "swift": "ping",
+      "sources": "LifecycleAPI"
+    },
+    "resources/logs.d.ts:LogsResource.get": {
+      "signature": "get(workspaceId: string, params?: LogsParams): Promise<ApiResponse>;",
+      "swift": "get",
+      "sources": "LogsAPI Streaming LogEvents"
+    },
+    "resources/logs.d.ts:LogsResource.clear": {
+      "signature": "clear(workspaceId: string): Promise<ApiResponse>;",
+      "swift": "clear",
+      "sources": "LogsAPI Streaming LogEvents"
+    },
+    "resources/logs.d.ts:LogsResource.listFiles": {
+      "signature": "listFiles(workspaceId: string): Promise<LogFile[]>;",
+      "swift": "listFiles",
+      "sources": "LogsAPI Streaming LogEvents"
+    },
+    "resources/logs.d.ts:LogsResource.getFile": {
+      "signature": "getFile(workspaceId: string, name: string): Promise<ApiResponse>;",
+      "swift": "getFile",
+      "sources": "LogsAPI Streaming LogEvents"
+    },
+    "resources/logs.d.ts:LogsResource.streamBoot": {
+      "signature": "streamBoot(workspaceId: string, params?: { tail_lines?: number; }): AsyncGenerator<LogStreamEvent>;",
+      "swift": "streamBoot",
+      "sources": "LogsAPI Streaming LogEvents"
+    },
+    "resources/logs.d.ts:LogsResource.streamCmd": {
+      "signature": "streamCmd(workspaceId: string, params?: { tail_lines?: number; }): AsyncGenerator<LogStreamEvent>;",
+      "swift": "streamCmd",
+      "sources": "LogsAPI Streaming LogEvents"
+    },
+    "resources/metadata.d.ts:MetadataResource.get": {
+      "signature": "get(workspaceId: string): Promise<Record<string, string>>;",
+      "swift": "get",
+      "sources": "MetadataAPI"
+    },
+    "resources/metadata.d.ts:MetadataResource.update": {
+      "signature": "update(workspaceId: string, params: UpdateMetadataParams): Promise<ApiResponse>;",
+      "swift": "update",
+      "sources": "MetadataAPI"
+    },
+    "resources/metadata.d.ts:MetadataResource.patch": {
+      "signature": "patch(workspaceId: string, params: UpdateMetadataParams): Promise<ApiResponse>;",
+      "swift": "patch",
+      "sources": "MetadataAPI"
+    },
+    "resources/metrics.d.ts:MetricsResource.stats": {
+      "signature": "stats(workspaceId: string): Promise<ApiResponse>;",
+      "swift": "stats",
+      "sources": "SubAPIs Extras Streaming"
+    },
+    "resources/metrics.d.ts:MetricsResource.statsStream": {
+      "signature": "statsStream(workspaceId: string): AsyncGenerator<StatsEvent>;",
+      "swift": "statsStream",
+      "sources": "SubAPIs Extras Streaming"
+    },
+    "resources/metrics.d.ts:MetricsResource.info": {
+      "signature": "info(workspaceId: string): Promise<ApiResponse>;",
+      "swift": "info",
+      "sources": "SubAPIs Extras Streaming"
+    },
+    "resources/metrics.d.ts:MetricsResource.config": {
+      "signature": "config(workspaceId: string): Promise<ApiResponse>;",
+      "swift": "config",
+      "sources": "SubAPIs Extras Streaming"
+    },
+    "resources/network.d.ts:NetworkResource.get": {
+      "signature": "get(workspaceId: string): Promise<NetworkConfig>;",
+      "swift": "get",
+      "sources": "SubAPIs Extras RuntimeOptions"
+    },
+    "resources/network.d.ts:NetworkResource.update": {
+      "signature": "update(workspaceId: string, params: NetworkUpdateParams): Promise<ApiResponse>;",
+      "swift": "update",
+      "sources": "SubAPIs Extras RuntimeOptions"
+    },
+    "resources/network.d.ts:NetworkResource.applyOutboundIp": {
+      "signature": "applyOutboundIp(workspaceId: string, params: { ip: string; }): Promise<ApiResponse>;",
+      "swift": "applyOutboundIp",
+      "sources": "SubAPIs Extras RuntimeOptions"
+    },
+    "resources/network.d.ts:NetworkResource.setCustomProxy": {
+      "signature": "setCustomProxy(workspaceId: string, proxy: CustomProxyParams): Promise<ApiResponse>;",
+      "swift": "setCustomProxy",
+      "sources": "SubAPIs Extras RuntimeOptions"
+    },
+    "resources/network.d.ts:NetworkResource.clearCustomProxy": {
+      "signature": "clearCustomProxy(workspaceId: string): Promise<ApiResponse>;",
+      "swift": "clearCustomProxy",
+      "sources": "SubAPIs Extras RuntimeOptions"
+    },
+    "resources/public-access.d.ts:PublicAccessResource.list": {
+      "signature": "list(workspaceId: string): Promise<PublicAccessPort[]>;",
+      "swift": "list",
+      "sources": "SubAPIs"
+    },
+    "resources/public-access.d.ts:PublicAccessResource.expose": {
+      "signature": "expose(workspaceId: string, params: ExposePortParams): Promise<PublicAccessPort>;",
+      "swift": "expose",
+      "sources": "SubAPIs"
+    },
+    "resources/public-access.d.ts:PublicAccessResource.updateSlug": {
+      "signature": "updateSlug(workspaceId: string, port: number, params: UpdateSlugParams): Promise<PublicAccessPort>;",
+      "swift": "updateSlug",
+      "sources": "SubAPIs"
+    },
+    "resources/public-access.d.ts:PublicAccessResource.revoke": {
+      "signature": "revoke(workspaceId: string, port: number): Promise<ApiResponse>;",
+      "swift": "revoke",
+      "sources": "SubAPIs"
+    },
+    "resources/resources.d.ts:ResourcesResource.get": {
+      "signature": "get(workspaceId: string): Promise<ApiResponse>;",
+      "swift": "get",
+      "sources": "SubAPIs"
+    },
+    "resources/resources.d.ts:ResourcesResource.update": {
+      "signature": "update(workspaceId: string, params: UpdateResourcesParams): Promise<ApiResponse>;",
+      "swift": "update",
+      "sources": "SubAPIs"
+    },
+    "resources/resources.d.ts:ResourcesResource.patch": {
+      "signature": "patch(workspaceId: string, params: UpdateResourcesParams): Promise<ApiResponse>;",
+      "swift": "patch",
+      "sources": "SubAPIs"
+    },
+    "resources/snapshots.d.ts:SnapshotsResource.create": {
+      "signature": "create(workspaceId: string, params?: SnapshotParams): Promise<ApiResponse>;",
+      "swift": "snapshot",
+      "sources": "SnapshotsAPI"
+    },
+    "resources/snapshots.d.ts:SnapshotsResource.restore": {
+      "signature": "restore(workspaceId: string): Promise<ApiResponse>;",
+      "swift": "restore",
+      "sources": "SnapshotsAPI"
+    },
+    "resources/snapshots.d.ts:SnapshotsResource.createArchive": {
+      "signature": "createArchive(workspaceId: string, params?: ArchiveCreateParams): Promise<ApiResponse>;",
+      "swift": "createArchive",
+      "sources": "SnapshotsAPI"
+    },
+    "resources/snapshots.d.ts:SnapshotsResource.listArchives": {
+      "signature": "listArchives(workspaceId: string): Promise<ArchiveInfo[]>;",
+      "swift": "listArchives",
+      "sources": "SnapshotsAPI"
+    },
+    "resources/snapshots.d.ts:SnapshotsResource.getArchive": {
+      "signature": "getArchive(workspaceId: string, version: string): Promise<ArchiveInfo>;",
+      "swift": "getArchive",
+      "sources": "SnapshotsAPI"
+    },
+    "resources/snapshots.d.ts:SnapshotsResource.deleteArchive": {
+      "signature": "deleteArchive(workspaceId: string, version: string, params?: { delete_file?: boolean; }): Promise<ApiResponse>;",
+      "swift": "deleteArchive",
+      "sources": "SnapshotsAPI"
+    },
+    "resources/snapshots.d.ts:SnapshotsResource.deleteAllArchives": {
+      "signature": "deleteAllArchives(workspaceId: string, params?: { delete_files?: boolean; }): Promise<ApiResponse>;",
+      "swift": "deleteAllArchives",
+      "sources": "SnapshotsAPI"
+    },
+    "resources/ssh.d.ts:SshResource.status": {
+      "signature": "status(workspaceId: string): Promise<SshStatus>;",
+      "swift": "status",
+      "sources": "SSHAPI"
+    },
+    "resources/ssh.d.ts:SshResource.enable": {
+      "signature": "enable(workspaceId: string): Promise<ApiResponse>;",
+      "swift": "enable",
+      "sources": "SSHAPI"
+    },
+    "resources/ssh.d.ts:SshResource.disable": {
+      "signature": "disable(workspaceId: string): Promise<ApiResponse>;",
+      "swift": "disable",
+      "sources": "SSHAPI"
+    },
+    "resources/ssh.d.ts:SshResource.setPassword": {
+      "signature": "setPassword(workspaceId: string, params: SshPasswordParams): Promise<ApiResponse>;",
+      "swift": "setPassword",
+      "sources": "SSHAPI"
+    },
+    "resources/ssh.d.ts:SshResource.setKey": {
+      "signature": "setKey(workspaceId: string, params: SshKeyParams): Promise<ApiResponse>;",
+      "swift": "setKey",
+      "sources": "SSHAPI"
+    },
+    "resources/usage.d.ts:UsageResource.get": {
+      "signature": "get(workspaceId: string, params?: UsageParams): Promise<ApiResponse>;",
+      "swift": "get",
+      "sources": "UsageAPI"
+    },
+    "resources/usage.d.ts:UsageResource.totals": {
+      "signature": "totals(workspaceId: string): Promise<ApiResponse>;",
+      "swift": "totals",
+      "sources": "UsageAPI"
+    },
+    "resources/usage.d.ts:UsageResource.creditsChart": {
+      "signature": "creditsChart(workspaceId: string): Promise<ApiResponse>;",
+      "swift": "creditsChart",
+      "sources": "UsageAPI"
+    },
+    "resources/usage.d.ts:UsageResource.global": {
+      "signature": "global(): Promise<ApiResponse>;",
+      "swift": "usageGlobal",
+      "sources": "UsageAPI"
+    },
+    "resources/usage.d.ts:UsageResource.activity": {
+      "signature": "activity(): Promise<ApiResponse>;",
+      "swift": "activity",
+      "sources": "UsageAPI"
+    },
+    "resources/usage.d.ts:UsageResource.wipe": {
+      "signature": "wipe(workspaceId: string): Promise<ApiResponse>;",
+      "swift": "wipe",
+      "sources": "UsageAPI"
+    },
+    "resources/usage.d.ts:UsageResource.startTracking": {
+      "signature": "startTracking(workspaceId: string): Promise<ApiResponse>;",
+      "swift": "startTracking",
+      "sources": "UsageAPI"
+    },
+    "resources/usage.d.ts:UsageResource.stopTracking": {
+      "signature": "stopTracking(workspaceId: string): Promise<ApiResponse>;",
+      "swift": "stopTracking",
+      "sources": "UsageAPI"
+    },
+    "resources/workloads.d.ts:WorkloadsResource.create": {
+      "signature": "create(workspaceId: string, params: WorkloadCreateParams): Promise<WorkloadInfo>;",
+      "swift": "create",
+      "sources": "WorkloadsAPI RuntimeOptions"
+    },
+    "resources/workloads.d.ts:WorkloadsResource.list": {
+      "signature": "list(workspaceId: string, params?: WorkloadListParams): Promise<WorkloadInfo[]>;",
+      "swift": "list",
+      "sources": "WorkloadsAPI RuntimeOptions"
+    },
+    "resources/workloads.d.ts:WorkloadsResource.get": {
+      "signature": "get(workspaceId: string, workloadId: string): Promise<WorkloadInfo>;",
+      "swift": "get",
+      "sources": "WorkloadsAPI RuntimeOptions"
+    },
+    "resources/workloads.d.ts:WorkloadsResource.update": {
+      "signature": "update(workspaceId: string, workloadId: string, params: WorkloadUpdateParams): Promise<ApiResponse>;",
+      "swift": "update",
+      "sources": "WorkloadsAPI RuntimeOptions"
+    },
+    "resources/workloads.d.ts:WorkloadsResource.patch": {
+      "signature": "patch(workspaceId: string, workloadId: string, params: WorkloadUpdateParams): Promise<ApiResponse>;",
+      "swift": "patch",
+      "sources": "WorkloadsAPI RuntimeOptions"
+    },
+    "resources/workloads.d.ts:WorkloadsResource.delete": {
+      "signature": "delete(workspaceId: string, workloadId: string): Promise<ApiResponse>;",
+      "swift": "delete",
+      "sources": "WorkloadsAPI RuntimeOptions"
+    },
+    "resources/workloads.d.ts:WorkloadsResource.deleteAll": {
+      "signature": "deleteAll(workspaceId: string): Promise<ApiResponse>;",
+      "swift": "deleteAll",
+      "sources": "WorkloadsAPI RuntimeOptions"
+    },
+    "resources/workloads.d.ts:WorkloadsResource.start": {
+      "signature": "start(workspaceId: string, workloadId: string): Promise<ApiResponse>;",
+      "swift": "start",
+      "sources": "WorkloadsAPI RuntimeOptions"
+    },
+    "resources/workloads.d.ts:WorkloadsResource.stop": {
+      "signature": "stop(workspaceId: string, workloadId: string): Promise<ApiResponse>;",
+      "swift": "stop",
+      "sources": "WorkloadsAPI RuntimeOptions"
+    },
+    "resources/workloads.d.ts:WorkloadsResource.status": {
+      "signature": "status(workspaceId: string, workloadId: string): Promise<ApiResponse>;",
+      "swift": "status",
+      "sources": "WorkloadsAPI RuntimeOptions"
+    },
+    "resources/workloads.d.ts:WorkloadsResource.logs": {
+      "signature": "logs(workspaceId: string, workloadId: string): Promise<ApiResponse>;",
+      "swift": "logs",
+      "sources": "WorkloadsAPI RuntimeOptions"
+    },
+    "resources/workloads.d.ts:WorkloadsResource.stats": {
+      "signature": "stats(workspaceId: string, workloadId: string): Promise<ApiResponse>;",
+      "swift": "stats",
+      "sources": "WorkloadsAPI RuntimeOptions"
+    },
+    "resources/workloads.d.ts:WorkloadsResource.statsStream": {
+      "signature": "statsStream(workspaceId: string, workloadId: string): AsyncGenerator<WorkloadStatsEvent>;",
+      "swift": "statsStream",
+      "sources": "WorkloadsAPI RuntimeOptions"
+    },
+    "resources/workloads.d.ts:WorkloadsResource.logsStream": {
+      "signature": "logsStream(workspaceId: string, workloadId: string): AsyncGenerator<WorkloadLogEntry>;",
+      "swift": "logsStream",
+      "sources": "WorkloadsAPI RuntimeOptions"
+    },
+    "resources/workloads.d.ts:WorkloadsResource.allStatsStream": {
+      "signature": "allStatsStream(workspaceId: string): AsyncGenerator<WorkloadStatsEvent>;",
+      "swift": "allStatsStream",
+      "sources": "WorkloadsAPI RuntimeOptions"
+    },
+    "runtime/desktop.d.ts:DesktopResource.status": {
+      "signature": "status(): Promise<DesktopStatus>;",
+      "swift": "status",
+      "sources": "DesktopAPI"
+    },
+    "runtime/desktop.d.ts:DesktopResource.enable": {
+      "signature": "enable(): Promise<DesktopStatus>;",
+      "swift": "enable",
+      "sources": "DesktopAPI"
+    },
+    "runtime/desktop.d.ts:DesktopResource.disable": {
+      "signature": "disable(): Promise<DesktopStatus>;",
+      "swift": "disable",
+      "sources": "DesktopAPI"
+    },
+    "runtime/desktop.d.ts:DesktopResource.credentials": {
+      "signature": "credentials(): Promise<{ username: string; password: string; }>;",
+      "swift": "credentials",
+      "sources": "DesktopAPI"
+    },
+    "runtime/desktop.d.ts:DesktopResource.url": {
+      "signature": "url(): string;",
+      "swift": "url",
+      "sources": "DesktopAPI"
+    },
+    "runtime/desktop.d.ts:DesktopResource.tunnel": {
+      "signature": "tunnel(options?: { port?: number; onError?: (error: Error) => void; }): Promise<DesktopTunnel>;",
+      "boundary": "Node localhost WebSocket proxy server; native clients use DesktopAPI.sshConnection and SSH/VNC."
+    },
+    "runtime/exec.d.ts:ExecResource.run": {
+      "signature": "run(cmd: string[], params?: ExecRunParams): Promise<ExecTask>;",
+      "swift": "run",
+      "sources": "RuntimeAPIs Extras Streaming"
+    },
+    "runtime/exec.d.ts:ExecResource.stream": {
+      "signature": "stream(cmd: string[], params?: ExecRunParams): AsyncGenerator<ExecStreamEvent>;",
+      "swift": "stream",
+      "sources": "RuntimeAPIs Extras Streaming"
+    },
+    "runtime/exec.d.ts:ExecResource.subscribe": {
+      "signature": "subscribe(taskId: string): AsyncGenerator<ExecStreamEvent>;",
+      "swift": "subscribe",
+      "sources": "RuntimeAPIs Extras Streaming"
+    },
+    "runtime/exec.d.ts:ExecResource.list": {
+      "signature": "list(): Promise<ExecTask[]>;",
+      "swift": "list",
+      "sources": "RuntimeAPIs Extras Streaming"
+    },
+    "runtime/exec.d.ts:ExecResource.get": {
+      "signature": "get(taskId: string): Promise<ExecTask>;",
+      "swift": "get",
+      "sources": "RuntimeAPIs Extras Streaming"
+    },
+    "runtime/exec.d.ts:ExecResource.kill": {
+      "signature": "kill(taskId: string): Promise<{ success: boolean; }>;",
+      "swift": "kill",
+      "sources": "RuntimeAPIs Extras Streaming"
+    },
+    "runtime/exec.d.ts:ExecResource.deleteAll": {
+      "signature": "deleteAll(): Promise<{ success: boolean; deleted: number; }>;",
+      "swift": "deleteAll",
+      "sources": "RuntimeAPIs Extras Streaming"
+    },
+    "runtime/exec.d.ts:ExecResource.input": {
+      "signature": "input(taskId: string, data: string): Promise<{ success: boolean; bytes_written: number; }>;",
+      "swift": "input",
+      "sources": "RuntimeAPIs Extras Streaming"
+    },
+    "runtime/files.d.ts:FilesResource.list": {
+      "signature": "list(params?: FileListParams): Promise<FileListResponse>;",
+      "swift": "list",
+      "sources": "RuntimeAPIs Streaming"
+    },
+    "runtime/files.d.ts:FilesResource.stream": {
+      "signature": "stream(params?: FileListParams): AsyncGenerator<FileEntry>;",
+      "swift": "stream",
+      "sources": "RuntimeAPIs Streaming"
+    },
+    "runtime/files.d.ts:FilesResource.read": {
+      "signature": "read(params: FileReadParams): Promise<FileReadResponse>;",
+      "swift": "read",
+      "sources": "RuntimeAPIs Streaming"
+    },
+    "runtime/files.d.ts:FilesResource.write": {
+      "signature": "write(params: FileWriteParams): Promise<FileWriteResponse>;",
+      "swift": "write",
+      "sources": "RuntimeAPIs Streaming"
+    },
+    "runtime/files.d.ts:FilesResource.mkdir": {
+      "signature": "mkdir(params: FileMkdirParams): Promise<{ success: boolean; path: string; }>;",
+      "swift": "mkdir",
+      "sources": "RuntimeAPIs Streaming"
+    },
+    "runtime/files.d.ts:FilesResource.stat": {
+      "signature": "stat(params: FileStatParams): Promise<FileStatResponse>;",
+      "swift": "stat",
+      "sources": "RuntimeAPIs Streaming"
+    },
+    "runtime/files.d.ts:FilesResource.delete": {
+      "signature": "delete(params: FileDeleteParams): Promise<{ success: boolean; path: string; }>;",
+      "swift": "delete",
+      "sources": "RuntimeAPIs Streaming"
+    },
+    "runtime/proxy.d.ts:RuntimeProxy.fetch": {
+      "signature": "fetch(path: string, init?: ProxyFetchInit): Promise<Response>;",
+      "swift": "fetch",
+      "sources": "RuntimeAPIs"
+    },
+    "runtime/proxy.d.ts:RuntimeProxy.ws": {
+      "signature": "ws(path?: string, protocols?: string | string[]): WebSocket;",
+      "swift": "webSocket",
+      "sources": "RuntimeAPIs"
+    },
+    "runtime/search.d.ts:SearchResource.content": {
+      "signature": "content(params: ContentSearchParams): Promise<ContentSearchResponse>;",
+      "swift": "content",
+      "sources": "RuntimeOptions"
+    },
+    "runtime/search.d.ts:SearchResource.files": {
+      "signature": "files(params: FileSearchParams): Promise<FileSearchResponse>;",
+      "swift": "files",
+      "sources": "RuntimeOptions"
+    },
+    "runtime/search.d.ts:SearchResource.status": {
+      "signature": "status(): Promise<SearchStatusResponse>;",
+      "swift": "status",
+      "sources": "RuntimeOptions"
+    },
+    "runtime/search.d.ts:SearchResource.init": {
+      "signature": "init(): Promise<SearchInitResponse>;",
+      "swift": "install",
+      "sources": "RuntimeOptions"
+    },
+    "runtime/terminal.d.ts:TerminalResource.create": {
+      "signature": "create(params?: TerminalCreateParams): Promise<TerminalSession>;",
+      "swift": "create",
+      "sources": "RuntimeAPIs Extras RuntimeOptions"
+    },
+    "runtime/terminal.d.ts:TerminalResource.list": {
+      "signature": "list(): Promise<TerminalSession[]>;",
+      "swift": "list",
+      "sources": "RuntimeAPIs Extras RuntimeOptions"
+    },
+    "runtime/terminal.d.ts:TerminalResource.close": {
+      "signature": "close(sessionId: string): Promise<{ success: boolean; terminal_id: string; }>;",
+      "swift": "close",
+      "sources": "RuntimeAPIs Extras RuntimeOptions"
+    },
+    "runtime/terminal.d.ts:TerminalResource.scrollback": {
+      "signature": "scrollback(sessionId: string, params?: { bytes?: number; }): Promise<TerminalScrollbackResponse>;",
+      "swift": "scrollback",
+      "sources": "RuntimeAPIs Extras RuntimeOptions"
+    },
+    "runtime/transfer.d.ts:TransferResource.download": {
+      "signature": "download(params: TransferDownloadParams): Promise<Response>;",
+      "swift": "download",
+      "sources": "TransferAPI"
+    },
+    "runtime/transfer.d.ts:TransferResource.upload": {
+      "signature": "upload(params: TransferUploadParams): Promise<TransferUploadResponse>;",
+      "swift": "upload",
+      "sources": "TransferAPI"
+    },
+    "runtime/watcher.d.ts:WatcherResource.create": {
+      "signature": "create(params: WatcherCreateParams): Promise<WatcherInfo>;",
+      "swift": "create",
+      "sources": "RuntimeOptions RuntimeAPIs"
+    },
+    "runtime/watcher.d.ts:WatcherResource.list": {
+      "signature": "list(): Promise<WatcherInfo[]>;",
+      "swift": "listWatchers",
+      "sources": "RuntimeOptions RuntimeAPIs"
+    },
+    "runtime/watcher.d.ts:WatcherResource.get": {
+      "signature": "get(watcherId: string): Promise<WatcherInfo>;",
+      "swift": "getWatcher",
+      "sources": "RuntimeOptions RuntimeAPIs"
+    },
+    "runtime/watcher.d.ts:WatcherResource.delete": {
+      "signature": "delete(watcherId: string): Promise<{ success: boolean; watcher_id: string; }>;",
+      "swift": "delete",
+      "sources": "RuntimeOptions RuntimeAPIs"
+    },
+    "runtime/ws.d.ts:RuntimeWebSocket.onTerminalOutput": {
+      "signature": "onTerminalOutput(handler: (id: string, data: Uint8Array) => void): this;",
+      "swift": "onTerminalOutput",
+      "sources": "TerminalMux"
+    },
+    "runtime/ws.d.ts:RuntimeWebSocket.onTerminalExit": {
+      "signature": "onTerminalExit(handler: (id: string, code: number) => void): this;",
+      "swift": "onTerminalExit",
+      "sources": "TerminalMux"
+    },
+    "runtime/ws.d.ts:RuntimeWebSocket.onWatcherEvent": {
+      "signature": "onWatcherEvent(handler: (event: WSWatcherEvent) => void): this;",
+      "swift": "onWatcherEvent",
+      "sources": "TerminalMux"
+    },
+    "runtime/ws.d.ts:RuntimeWebSocket.onOpen": {
+      "signature": "onOpen(handler: () => void): this;",
+      "swift": "onOpen",
+      "sources": "TerminalMux"
+    },
+    "runtime/ws.d.ts:RuntimeWebSocket.onClose": {
+      "signature": "onClose(handler: (code: number, reason: string) => void): this;",
+      "swift": "onClose",
+      "sources": "TerminalMux"
+    },
+    "runtime/ws.d.ts:RuntimeWebSocket.onError": {
+      "signature": "onError(handler: (error: unknown) => void): this;",
+      "swift": "onError",
+      "sources": "TerminalMux"
+    },
+    "runtime/ws.d.ts:RuntimeWebSocket.onMessage": {
+      "signature": "onMessage(handler: (msg: WSMessage) => void): this;",
+      "swift": "onMessage",
+      "sources": "TerminalMux"
+    },
+    "runtime/ws.d.ts:RuntimeWebSocket.writeTerminalInput": {
+      "signature": "writeTerminalInput(terminalId: string | number, data: string | Uint8Array): void;",
+      "swift": "writeTerminalInput",
+      "sources": "TerminalMux"
+    },
+    "runtime/ws.d.ts:RuntimeWebSocket.resizeTerminal": {
+      "signature": "resizeTerminal(terminalId: string, cols: number, rows: number): void;",
+      "swift": "resizeTerminal",
+      "sources": "TerminalMux"
+    },
+    "runtime/ws.d.ts:RuntimeWebSocket.sendJSON": {
+      "signature": "sendJSON(msg: Record<string, unknown>): void;",
+      "swift": "sendJSON",
+      "sources": "TerminalMux"
+    },
+    "runtime/ws.d.ts:RuntimeWebSocket.connect": {
+      "signature": "connect(): void;",
+      "swift": "connect",
+      "sources": "TerminalMux"
+    },
+    "runtime/ws.d.ts:RuntimeWebSocket.close": {
+      "signature": "close(): void;",
+      "swift": "close",
+      "sources": "TerminalMux"
+    },
+    "runtime/ws.d.ts:RuntimeWebSocket.connected": {
+      "signature": "get connected(): boolean;",
+      "swift": "connected",
+      "sources": "TerminalMux"
+    }
+  },
+  "declarations": {
+    "analytics.d.ts": "b75fb423f4c36672a418a6f62958c97d9769ddf3401989312ced34304bc72beb",
+    "billing.d.ts": "95c62cf08867156c1e0252c23117fa3d2714547e2280884b5bddb5b0d35f3aa9",
+    "cdn.d.ts": "3a3907763ecf7d4041cd140b6de5ab2e5fc4062f15f05c9cdad6ff1d2e95bb62",
+    "client.d.ts": "8e414442d2f4fc9f1bba2029f98f28e931efd6a1c49556b29d8e1edc928b60be",
+    "domain.d.ts": "6a113546a82000a2d224018e61c86a6af6da04d2c60ed7ad40fc8bfd2a4aac8d",
+    "edge-proxy.d.ts": "a3011cdd73a39398d1bab60c0083fb5f849167637f0407c2934fad1717928fd7",
+    "edge-tunnel.d.ts": "d3bc14e2a9d3470f1951b1906b0b43bb47ef7b5f5e15230ee17ef659e6d4a903",
+    "namespace.d.ts": "0b1c0b348de40c4d6f7606217420d47e6a3dd312bccfabb4d3363e5f36811d53",
+    "notifications.d.ts": "3521b63d147cf8964d216a5cb2be478dc99fb8e968d2c19384d23b072468564a",
+    "pages.d.ts": "80bb3cca7087808b39f5caa9e869a35a6fb7c27f44e13db09adffd5ae6ac06d3",
+    "routes.d.ts": "5181d8525ba54a74e9e0f058a06520c30affabcc17fbb8d4709bfe02004715e4",
+    "runtime.d.ts": "7e17afe9837bbc68229f3be45696762804e3b22e93853efe7a299f91f828b95d",
+    "tokens.d.ts": "259041d9cdc47fcd0406e276b53e8a135b688abdfc923eda7862091a94050c44",
+    "webhooks.d.ts": "4c236be1810ab095288a8093908e5bd6371595763877d2ef50b5c42223e93f3c",
+    "workspace-handle.d.ts": "cd5b24dfdec05ad72399feed3b28bb69559d322254391e5b5c8833c5a740389c",
+    "workspace.d.ts": "8e3f37a5e19f072557194f28a9d2e42e7b413e6f17c13b72f4369d79be3f4f65",
+    "resources/api-access.d.ts": "ff469369cc509224e605b6c528b399c3a049ba08962e70b718b2abe02ed9fe91",
+    "resources/desktop.d.ts": "3a16263fa441808a3252e86b01901e6bb06b002bd011dc3b57882759b530ed09",
+    "resources/domains.d.ts": "5c924b9f11f1e4da459a77be2bf7bee6789cf3a339b4824fdbcbe60cb7effbcc",
+    "resources/images.d.ts": "cb4c1d235283fdef326bb52b53b576bb4dd7347db4bbaec6194909c7eaec0ffa",
+    "resources/lifecycle.d.ts": "c0119b687ce8e4b99ae1ab11ffe0f0f0fd7e531d7491cd5a250afd04a3e742d9",
+    "resources/logs.d.ts": "3f6d8d8c52b7ef2cb2e7ae7355b419b1cff115498ace4ddb0822ae70e3409e6d",
+    "resources/metadata.d.ts": "f77f7c4d97a33be210659dc23867cc3a05dd290bf1b07649e2cd511902826247",
+    "resources/metrics.d.ts": "7131ef7d4ec658a806f934f03073cfdabf3589fd230dc07896ef1aaf39ff82a9",
+    "resources/network.d.ts": "746dfa7b41c676328c521dde350de2411998220498f8a2f2337228587c452764",
+    "resources/public-access.d.ts": "d912d369033a3fae58527e86e1393755d968d6fba73f4283be1db1e6aeb0fbcb",
+    "resources/resources.d.ts": "f3d0ceb05489059038dbe1cf90a2b4b12124cea9e5dd7bc27f09417368975c45",
+    "resources/snapshots.d.ts": "0b49af562dbf1fde77daad19c5534aa998bba55cb66e0495d74d6bb6f9acbdee",
+    "resources/ssh.d.ts": "a609bc52e3aa0a924ce35447b2ecc2a9490733904d62924bee9b1130cd79ac48",
+    "resources/usage.d.ts": "f8b506bb9e4dac044d4e7b70c95b65d7ed4d21228f810b692fb380070d5b7a33",
+    "resources/workloads.d.ts": "029ccb919e80dabacd498c472ef0cbfcca85aa703d445559fce4eef942c725f6",
+    "runtime/desktop-tunnel.d.ts": "e7b2f57682e294d7da58c4d7bc9f1144848c60e3b1768a39b48cd407ddefc5fe",
+    "runtime/desktop.d.ts": "fd59e56cfeda31b8f282e2233124e971ec9405e5f1e613d8281cdf072e00bb23",
+    "runtime/exec.d.ts": "3a189eb996fc5ff77369fabadb3593753df335e8521f2e65b9aec5c3e3000eb1",
+    "runtime/files.d.ts": "ef8053442daaf8bff8aa3138a47a55700a71b7a8abb87dca9932a131b1b15e14",
+    "runtime/proxy.d.ts": "a95afad25306e1d50f9bb5f516a183e4c64064239187870653e89e1cad7243e6",
+    "runtime/search.d.ts": "45555ed282bdfbd05d830dae81f104fb8c4e5dda1297998d031851f5cdf2474a",
+    "runtime/terminal.d.ts": "20d2919360dc18fa3e986d22a7cc743e93f499b44a7d62beee69e7c5f5acff24",
+    "runtime/transfer.d.ts": "3ad77e80490ad7d43b375e18cbecd05bdd8e28581cc83b051a6ddc3aabb967af",
+    "runtime/watcher.d.ts": "3f53ce21e102191222df4df30f87b08dc5bda6c7f97e274915bcb390aea23a70",
+    "runtime/ws.d.ts": "54661e56556ba6ec3a0f117f0e89739140456ccec397d06f66e45caa0a50cd4b",
+    "types/analytics.d.ts": "1e13344f77ded8ca988c3247a6efb1d9a8150531908b121f2f94490e36cff2ab",
+    "types/billing.d.ts": "1c654f58d952a2e5708f524bd43e69dd8d8ba4e32781b84438c63c0de82dd8f1",
+    "types/cdn.d.ts": "df1191f12d183d07d8273ebd576e6b85129341eaab5e4bea72e0f518f1be2a87",
+    "types/client.d.ts": "6ed081c3d0b9f85909c0c952227f2add4a0be5ad5554f7d30641159f84c184d6",
+    "types/common.d.ts": "e808006a6cb70d577d299248b13935aed6a391271124bda7b858951ce355d0c9",
+    "types/edge-proxy.d.ts": "6d90537fe8967b93d86d1ea0703c180b3397af62e9c0ecf6d410447877ee00a4",
+    "types/edge-tunnel.d.ts": "76bf25ec18d9b27cabfe80397bf2c3dd60b8b4a983ba899a8155b8d7d3671eb3",
+    "types/namespace.d.ts": "37231c9c969b5948e801f85fe9c55b4b0119634e0c00ada0419608162320eb8b",
+    "types/network.d.ts": "ffeeaa86548299a20dd494cf76caf32db454198efe14e14b3242d5329ed41814",
+    "types/notifications.d.ts": "7af066ad9adcf5df6327c22d80eb21a45dc3e628e88eb6d9c9f010e9628b2c6f",
+    "types/pages.d.ts": "b37dd4fc7f8c4091055bfab77c32af7c75b0010d0b34fa849f65eeb54923f19d",
+    "types/resources.d.ts": "ab27737f8ecc3320272a3d4d3f626de2acccb02469b072e83f1f4c7ac3b52116",
+    "types/runtime.d.ts": "cccb4094e908cbc70de1e19de6bc17744afc191c51693b8000ffdb175514d791",
+    "types/tokens.d.ts": "1c3a631896ab12d162c630333e594f688dfed661e41927dcfc6d4bb6f5487ca9",
+    "types/webhooks.d.ts": "fda0f68955fb502511cd2e7e56f9fed255ec472d18143ef0f2c63aa189b116fb",
+    "types/workspace-resources.d.ts": "9e76cf86397a53e2dd3372b965021ca3ef3015e2e6ee02b5cbd764d62bf17a48",
+    "types/workspace.d.ts": "199525ab080dc0414de5d758b632dcd6c9787029c818348b27ae697a5cca00ab"
+  }
+}
