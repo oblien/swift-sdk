@@ -1,4 +1,4 @@
-// Models audited against oblien 2.4.0. Regenerate with scripts/generate-platform-models.cjs.
+// Models audited against oblien 2.8.0. Regenerate with scripts/generate-platform-models.cjs.
 import Foundation
 
 public struct EdgeTunnelSSLState: Codable, Sendable {

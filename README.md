@@ -2,7 +2,7 @@
 
 A Swift SDK for [Oblien](https://oblien.com), using Foundation, URLSession and async/await. Supports iOS 16+ and macOS 12+ without third-party dependencies.
 
-The management and runtime APIs cover the portable surface of the TypeScript `oblien` SDK **2.4.0**. They also include the current disk and desktop installation APIs. See [TypeScript coverage](docs/TypeScriptCoverage.md) for the API mapping, native equivalents, verification, and platform boundaries.
+The management and runtime APIs cover the portable surface of the TypeScript `oblien` SDK **2.8.0**. They also include the current disk and desktop installation APIs. See [TypeScript coverage](docs/TypeScriptCoverage.md) for the API mapping, native equivalents, verification, and platform boundaries.
 
 ## Install
 
@@ -106,7 +106,7 @@ swift test
 NODE_PATH=/path/to/node_modules node scripts/audit-typescript-sdk.cjs /path/to/oblien/dist
 ```
 
-The audit compares declarations and the reviewed Swift method mapping with a checked-in 2.4.0 snapshot. Optional live tests require `OBLIEN_LIVE_TOKEN_FILE`; see the coverage document before running them.
+The audit compares declarations and the reviewed Swift method mapping with a checked-in 2.8.0 snapshot. Optional live tests require `OBLIEN_LIVE_TOKEN_FILE`; see the coverage document before running them.
 
 ## License
 

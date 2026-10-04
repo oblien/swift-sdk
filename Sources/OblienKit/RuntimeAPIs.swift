@@ -144,6 +144,27 @@ public struct ExecAPI: Sendable {
 public struct TerminalAPI: Sendable {
     let runtime: RuntimeClient
 
+    /// Clears retained output without closing the shell or stopping its processes.
+    public func clearScrollback(_ id: String) async throws -> TerminalHistoryResult {
+        let data = try await runtime.perform("DELETE", "/terminals/\(id.pathEscaped)/scrollback")
+        let value = try OblienJSON.decode(TerminalHistoryResult.self, data)
+        guard value.success, value.terminalId == id, let size = value.scrollbackSize,
+              (1...262144).contains(size) else { throw Self.historyUnavailable() }
+        return value
+    }
+    public func configureScrollback(_ id: String, bytes: Int) async throws -> TerminalHistoryResult {
+        guard (0...262144).contains(bytes) else { throw OblienError(kind: .validation, status: nil, code: nil, message: "Use 0–262144 scrollback bytes.", details: nil) }
+        let data = try await runtime.perform("PATCH", "/terminals/\(id.pathEscaped)/scrollback", body: OblienJSON.encode(["scrollback_size": bytes]))
+        let value = try OblienJSON.decode(TerminalHistoryResult.self, data)
+        guard value.success, value.terminalId == id, value.scrollbackSize == (bytes == 0 ? 65536 : bytes) else { throw Self.historyUnavailable() }
+        return value
+    }
+    public func clearScrollback(_ id: Int) async throws -> TerminalHistoryResult { try await clearScrollback(String(id)) }
+    public func configureScrollback(_ id: Int, bytes: Int) async throws -> TerminalHistoryResult { try await configureScrollback(String(id), bytes: bytes) }
+    private static func historyUnavailable() -> OblienError {
+        .init(kind: .validation, status: nil, code: "runtime_upgrade_required", message: "Update the workspace runtime to manage terminal history.", details: nil)
+    }
+
     public func create(cmd: [String]? = nil, cols: Int? = nil, rows: Int? = nil, shell: String? = nil,
                        scrollbackSize: Int? = nil) async throws -> TerminalCreateResult {
         struct Body: Encodable { let cmd: [String]?; let cols: Int?; let rows: Int?; let scrollbackSize: Int? }
@@ -154,6 +175,12 @@ public struct TerminalAPI: Sendable {
     public func close(_ id: Int) async throws {
         _ = try await runtime.perform("DELETE", "/terminals/\(id)")
     }
+}
+
+public struct TerminalHistoryResult: Codable, Sendable {
+    public let success: Bool
+    public var terminalId: String?
+    public var scrollbackSize: Int?
 }
 
 /// Runtime code search (`rt.search.*`).

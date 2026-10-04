@@ -14,14 +14,16 @@ const snapshotPath = path.join(__dirname, 'typescript-surface.json');
 const text = files => files.split(' ').map(file => fs.readFileSync(path.join(source, file + '.swift'), 'utf8')).join('\n');
 // [Swift sources, method renames]. Swift binds resource IDs before calling methods.
 const modules = {
+  'access.d.ts': ['AccessAPI'],
   'analytics.d.ts': ['AnalyticsAPI'],
   'billing.d.ts': ['BillingAPI'],
   'cdn.d.ts': ['CDNAPI'],
   'client.d.ts': ['OblienClient PagesAPI'],
   'domain.d.ts': ['AccountDomainsAPI'],
+  'disks.d.ts': ['DisksAPI'],
   'edge-proxy.d.ts': ['EdgeAPI'],
   'edge-tunnel.d.ts': ['EdgeAPI'],
-  'namespace.d.ts': ['NamespacesAPI'],
+  'namespace.d.ts': ['NamespacesAPI', { usage: 'usageData' }],
   'notifications.d.ts': ['NotificationsAPI'],
   'pages.d.ts': ['PagesAPI'],
   'routes.d.ts': ['PagesAPI'],
@@ -31,7 +33,7 @@ const modules = {
   'workspace.d.ts': ['WorkspacesAPI WorkspaceHandle Extras', { setTokenTtl: 'setTokenTTL' }],
   'workspace-handle.d.ts': ['WorkspaceHandle WorkspaceOptions'],
   'resources/api-access.d.ts': ['SubAPIs'],
-  'resources/desktop.d.ts': ['DesktopAPI'],
+  'resources/desktop.d.ts': ['DesktopAPI DesktopSessions'],
   'resources/domains.d.ts': ['DomainsAPI', { connect: 'set', disconnect: 'remove', checkDNS: 'check' }],
   'resources/images.d.ts': ['WorkspacesAPI', { list: 'images' }],
   'resources/lifecycle.d.ts': ['LifecycleAPI', { updateTtl: 'updateTTL' }],
@@ -45,7 +47,7 @@ const modules = {
   'resources/ssh.d.ts': ['SSHAPI'],
   'resources/usage.d.ts': ['UsageAPI', { global: 'usageGlobal' }],
   'resources/workloads.d.ts': ['WorkloadsAPI RuntimeOptions'],
-  'runtime/desktop.d.ts': ['DesktopAPI'],
+  'runtime/desktop.d.ts': ['DesktopAPI DesktopSessions'],
   'runtime/exec.d.ts': ['RuntimeAPIs Extras Streaming'],
   'runtime/files.d.ts': ['RuntimeAPIs Streaming'],
   'runtime/proxy.d.ts': ['RuntimeAPIs', { ws: 'webSocket' }],
@@ -72,6 +74,7 @@ for (const folder of ['', 'resources', 'runtime', 'types']) {
     for (const declaration of file.statements) {
       if (!ts.isClassDeclaration(declaration)) continue;
       for (const member of declaration.members) {
+        if (ts.getJSDocTags(member).some(tag => tag.tagName.text === 'internal')) continue;
         if (!member.name || member.name.getText(file).startsWith('_') || member.modifiers?.some(m => [ts.SyntaxKind.PrivateKeyword, ts.SyntaxKind.ProtectedKeyword].includes(m.kind))) continue;
         if (!ts.isMethodDeclaration(member) && !ts.isGetAccessorDeclaration(member)) continue;
         const method = member.name.getText(file);

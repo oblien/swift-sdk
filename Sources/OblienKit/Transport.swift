@@ -228,6 +228,12 @@ actor Transport {
         var req = URLRequest(url: url)
         req.httpMethod = method
         for (key, value) in headers { req.setValue(value, forHTTPHeaderField: key) }
+        if case .management = host, let accountId = config.accountId {
+            guard accountId.range(of: "^[1-9][0-9]{0,14}$", options: .regularExpression) != nil else {
+                throw OblienError(kind: .validation, status: nil, code: nil, message: "Invalid account ID.", details: nil)
+            }
+            req.setValue(accountId, forHTTPHeaderField: "X-Oblien-Account")
+        }
         if req.value(forHTTPHeaderField: "Accept") == nil { req.setValue(accept, forHTTPHeaderField: "Accept") }
         if let body {
             req.httpBody = body

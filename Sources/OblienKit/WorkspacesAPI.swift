@@ -16,8 +16,11 @@ public struct WorkspacesAPI: Sendable {
         if let cpus = request.cpus { config.cpus = cpus }
         if let memory = request.memoryMb { config.memoryMb = memory }
         if let disk = request.diskSizeMb { config.diskSizeMb = disk }
+        if let rootDiskId = request.rootDiskId { config.rootDiskId = rootDiskId }
+        if let disks = request.disks { config.disks = disks }
         request.config = config
         request.cpus = nil; request.memoryMb = nil; request.diskSizeMb = nil
+        request.rootDiskId = nil; request.disks = nil
         request.waitReady = false; request.readyTimeoutSeconds = nil
         let body = try OblienJSON.encode(request)
         let data = try await transport.request("POST", "/workspace", body: body,

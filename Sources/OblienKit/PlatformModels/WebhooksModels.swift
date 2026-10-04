@@ -1,4 +1,4 @@
-// Models audited against oblien 2.4.0. Regenerate with scripts/generate-platform-models.cjs.
+// Models audited against oblien 2.8.0. Regenerate with scripts/generate-platform-models.cjs.
 import Foundation
 
 /// Open string enum; preserves new server values.
@@ -20,11 +20,27 @@ public struct WebhookEvent: RawRepresentable, Codable, Sendable, Hashable {
     public static let `namespaceQuotaThreshold` = Self(rawValue: "namespace.quota.threshold")
     public static let `paymentSucceeded` = Self(rawValue: "payment.succeeded")
     public static let `subscriptionTierChanged` = Self(rawValue: "subscription.tier_changed")
+    public static let `subscriptionChangeScheduled` = Self(rawValue: "subscription.change.scheduled")
+    public static let `subscriptionChangeApplied` = Self(rawValue: "subscription.change.applied")
+    public static let `subscriptionChangeCanceled` = Self(rawValue: "subscription.change.canceled")
+    public static let `subscriptionChangePaymentRequired` = Self(rawValue: "subscription.change.payment_required")
+    public static let `subscriptionChangeFailed` = Self(rawValue: "subscription.change.failed")
+    public static let `subscriptionChangeExpired` = Self(rawValue: "subscription.change.expired")
     public static let `subscriptionRenewed` = Self(rawValue: "subscription.renewed")
     public static let `subscriptionPastDue` = Self(rawValue: "subscription.past_due")
     public static let `subscriptionCanceled` = Self(rawValue: "subscription.canceled")
     public static let `subscriptionUpdated` = Self(rawValue: "subscription.updated")
     public static let `entitlementChanged` = Self(rawValue: "entitlement.changed")
+    public static let `capacityChanged` = Self(rawValue: "capacity.changed")
+    public static let `capacityRenewed` = Self(rawValue: "capacity.renewed")
+    public static let `capacityExpired` = Self(rawValue: "capacity.expired")
+    public static let `capacityPaymentRequired` = Self(rawValue: "capacity.payment_required")
+    public static let `capacityRevoked` = Self(rawValue: "capacity.revoked")
+    public static let `networkTopupApplied` = Self(rawValue: "network.topup_applied")
+    public static let `networkAllowanceLow` = Self(rawValue: "network.allowance.low")
+    public static let `networkAllowanceDepleted` = Self(rawValue: "network.allowance.depleted")
+    public static let `storageRetentionPaymentRequired` = Self(rawValue: "storage.retention.payment_required")
+    public static let `storageRetentionPaid` = Self(rawValue: "storage.retention.paid")
     public static let `namespaceSuspended` = Self(rawValue: "namespace.suspended")
     public static let `namespaceRestored` = Self(rawValue: "namespace.restored")
 }

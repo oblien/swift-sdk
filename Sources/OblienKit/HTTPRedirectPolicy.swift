@@ -30,7 +30,7 @@ class HTTPRedirectDelegate: NSObject, URLSessionTaskDelegate, @unchecked Sendabl
             if response.url?.host != request.url?.host || response.url?.scheme != request.url?.scheme || response.url?.port != request.url?.port {
                 // URLSession normally removes Authorization across origins. Explicitly remove
                 // the custom Oblien headers too so a proxied redirect cannot leak credentials.
-                for field in ["Authorization", "X-Client-ID", "X-Client-Secret", "X-Oblien-Proxy-Target"] {
+                for field in ["Authorization", "X-Client-ID", "X-Client-Secret", "X-Oblien-Account", "X-Oblien-Proxy-Target"] {
                     request.setValue(nil, forHTTPHeaderField: field)
                 }
             }

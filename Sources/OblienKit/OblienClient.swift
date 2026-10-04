@@ -42,6 +42,16 @@ public struct OblienClient: Sendable {
     public var tokens: TokensAPI { TokensAPI(transport: transport) }
     public var notifications: NotificationsAPI { NotificationsAPI(transport: transport) }
 
+    /// A new transport and runtime cache; existing handles retain their account.
+    public func withAccount(_ accountId: String) throws -> OblienClient {
+        guard accountId.range(of: "^[1-9][0-9]{0,14}$", options: .regularExpression) != nil else {
+            throw OblienError(kind: .validation, status: nil, code: nil, message: "Invalid account ID.", details: nil)
+        }
+        var configuration = config
+        configuration.accountId = accountId
+        return OblienClient(configuration, session: session)
+    }
+
     /// Returns a separate client with new credentials and no shared runtime-token cache.
     /// Previously created handles retain their original identity (Swift value semantics).
     public func withToken(_ token: String) -> OblienClient {
