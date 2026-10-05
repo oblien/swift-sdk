@@ -46,12 +46,14 @@ public struct MacOSBootConfig: Codable, Sendable {
     public var network: String?
     public var storage: String?
     public var diskCache: String?
+    public var warmBoot: String?
     public var bootArgs: String?
     public var ports: [Port]?
     public init(agent: String? = nil, network: String? = nil, storage: String? = nil,
-                diskCache: String? = nil, bootArgs: String? = nil, ports: [Port]? = nil) {
+                diskCache: String? = nil, bootArgs: String? = nil, ports: [Port]? = nil, warmBoot: String? = nil) {
         self.agent = agent; self.network = network; self.storage = storage
         self.diskCache = diskCache; self.bootArgs = bootArgs; self.ports = ports
+        self.warmBoot = warmBoot
     }
     public struct Port: Codable, Sendable {
         public var host: Int

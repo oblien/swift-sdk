@@ -1,4 +1,4 @@
-// Models audited against oblien 2.4.0. Regenerate with scripts/generate-platform-models.cjs.
+// Models audited against oblien 2.8.0. Regenerate with scripts/generate-platform-models.cjs.
 import Foundation
 
 public struct RuntimeInfoBootSubsystem: Codable, Sendable {
@@ -409,17 +409,23 @@ public struct TerminalScrollbackResponse: Codable, Sendable {
     @APIBoolean public var `success`: Bool
     public var `scrollback`: String
     @APINumber public var `size`: Int
+    @APIOptionalNumber public var `scrollbackSize`: Int?
+    @APIOptionalNumber public var `maxScrollbackSize`: Int?
     @APIBoolean public var `alive`: Bool
     @APINumber public var `exitCode`: Double
 
     public init(`success`: Bool,
                 `scrollback`: String,
                 `size`: Int,
+                `scrollbackSize`: Int? = nil,
+                `maxScrollbackSize`: Int? = nil,
                 `alive`: Bool,
                 `exitCode`: Double) {
         self.`success` = `success`
         self.`scrollback` = `scrollback`
         self.`size` = `size`
+        self.`scrollbackSize` = `scrollbackSize`
+        self.`maxScrollbackSize` = `maxScrollbackSize`
         self.`alive` = `alive`
         self.`exitCode` = `exitCode`
     }
@@ -428,6 +434,8 @@ public struct TerminalScrollbackResponse: Codable, Sendable {
         case `success` = "success"
         case `scrollback` = "scrollback"
         case `size` = "size"
+        case `scrollbackSize` = "scrollback_size"
+        case `maxScrollbackSize` = "max_scrollback_size"
         case `alive` = "alive"
         case `exitCode` = "exit_code"
     }

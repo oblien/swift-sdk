@@ -1,6 +1,6 @@
 # TypeScript SDK coverage
 
-Reference: npm `oblien@2.4.0`, reviewed September 25, 2026. The checked-in inventory maps **297 portable methods/accessors** to Swift sources and identifies **two Node hosting helpers**. Declaration hashes include request/response types, nested options and event definitions so an upstream change requires another review.
+Reference: npm `oblien@2.8.0`, reviewed October 4, 2026. The checked-in inventory maps **362 portable methods/accessors** to Swift sources and identifies **two Node hosting helpers**. Declaration hashes include request/response types, nested options and event definitions so an upstream change requires another review.
 
 This is API coverage, not a promise that every endpoint is enabled for every plan, credential scope, image or workspace runtime. UI clients should read capabilities and permissions, preserve durable operation IDs, and show the API's recoverable failure.
 
@@ -31,7 +31,7 @@ This is API coverage, not a promise that every endpoint is enabled for every pla
 | cdn | `CDNAPI`, `CDNDomainsAPI` | Single/multiple uploads, remote URLs, processing variants/options, files/trash/restore, tags/stats/usage, quotas and domains |
 | notifications | `NotificationsAPI` | Workspace send-token lifecycle, send requests and per-provider delivery errors |
 
-Current Oblien documentation additionally describes persistent disks/software and desktop preparation. `DisksAPI` covers create/get/list/delete/copy/save/fork/resize/attach/detach/move, root retention, saved execution discard, software library and durable operation polling/retry. These extensions are beyond the published 2.4.0 declaration snapshot.
+The reviewed release includes persistent disks/software, desktop preparation, saved desktop sessions, account sharing, plan changes and terminal history controls. `DisksAPI` covers create/get/list/delete/copy/save/fork/resize/attach/detach/move, root retention, saved execution discard, software library and durable operation polling/retry. Saved desktops have independent IDs and lifecycles. Management and runtime clients share the same session API. Closing a viewer does not stop or delete its desktop. Console creation may omit resolution, and deletion may return a `deleting` session, as documented by the newer provider API.
 
 ## Native equivalents and boundaries
 
@@ -59,7 +59,7 @@ Exec streams decode the actual JSON/base64 wire frames. Log following subscribes
 `swift test` runs wire-contract, retry, credentials, stream, log reconciliation, nullable model and lifecycle tests. The declaration audit is a drift check, not a network test:
 
 ```sh
-npm pack oblien@2.4.0
+npm pack oblien@2.8.0
 # Extract the package, then:
 NODE_PATH=/path/to/node_modules node scripts/audit-typescript-sdk.cjs /path/to/package/dist
 ```
@@ -79,3 +79,7 @@ swift test --filter 'WorkspaceControlLiveTests|PlatformReadLiveTests'
 `WorkspaceControlLiveTests` creates a disposable workspace and disks, writes an ID receipt for recovery, exercises runtime and infrastructure controls, and removes its fixtures. It incurs temporary resource usage. `PlatformReadLiveTests` performs account read groups. They do not alter existing workspaces or exercise destructive account/billing actions.
 
 The verified workspace image currently rejects workload log retention/clear with HTTP 409 when its Oblien runtime agent is too old. The methods and wire contracts are implemented; upgrading that runtime is required to use them. This is reported as an unavailable backend capability, not a passing live mutation.
+
+`withAccount` isolates management account headers and runtime caches. `access` supports invitations, member roles/expiry, shared workspaces, delegated SSH, token issuance and audit. `namespaces.usageData` exposes typed quota alerts while the older `usage` response remains available. Terminal scrollback changes require a matching server acknowledgment; an older runtime cannot silently report success.
+
+The audit is pinned to published npm `oblien@2.8.0`, including capacity billing, network top-ups, savings, desktop deletion/resize capabilities and deletion progress.

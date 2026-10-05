@@ -19,6 +19,7 @@ public struct SSHStatus: Codable, Sendable {
     public var passwordAuthEnabled: Bool?
     public var passwordAffectsDesktop: Bool?
     public var sshKeySet: Bool?
+    public var requiresAccountAccess: Bool?
 
     public var connectionInfo: SSHConnectionInfo? {
         guard let connection else { return nil }
@@ -42,6 +43,7 @@ public struct SSHStatus: Codable, Sendable {
         passwordAuthEnabled = try fields.take("password_auth_enabled", as: Bool.self)
         passwordAffectsDesktop = try fields.take("password_affects_desktop", as: Bool.self)
         sshKeySet = try fields.take("ssh_key_set", as: Bool.self)
+        requiresAccountAccess = try fields.take("requires_account_access", as: Bool.self)
         additionalProperties = fields.values
     }
 
@@ -60,6 +62,7 @@ public struct SSHStatus: Codable, Sendable {
         try fields.set("password_auth_enabled", passwordAuthEnabled)
         try fields.set("password_affects_desktop", passwordAffectsDesktop)
         try fields.set("ssh_key_set", sshKeySet)
+        try fields.set("requires_account_access", requiresAccountAccess)
         try fields.encode(to: encoder)
     }
 }
@@ -78,6 +81,11 @@ public struct SSHAPI: Sendable {
     let transport: Transport
     let workspaceId: String
     private var base: String { "/workspace/\(workspaceId.pathEscaped)/ssh" }
+
+    /// Temporary, identity-bound SSH/SFTP grant for owners and collaborators.
+    public func connection() async throws -> SharedSSHConnection {
+        try OblienJSON.decode(SharedSSHConnection.self, await transport.request("POST", "/access/ssh/\(workspaceId.pathEscaped)", body: Data("{}".utf8)))
+    }
 
     public func status() async throws -> SSHStatus {
         try OblienJSON.decode(SSHStatus.self, try await transport.request("GET", base))

@@ -162,18 +162,22 @@ public struct WorkspaceCreateParams: Codable, Sendable {
     public var cpus: Int?
     public var memoryMb: Int?
     public var diskSizeMb: Int?
+    public var rootDiskId: String?
+    public var disks: [WorkspaceDiskAttachment]?
     public var additionalProperties: [String: JSONValue] = [:]
 
     public init(image: String? = nil, name: String? = nil, slug: String? = nil, namespace: String? = nil,
                 mode: WorkspaceMode? = nil, type: String? = nil, config: WorkspaceConfig? = nil,
                 preset: String? = nil, waitReady: Bool? = nil, idempotencyKey: String? = nil,
                 readyTimeoutSeconds: Int? = nil, cpus: Int? = nil, memoryMb: Int? = nil,
-                diskSizeMb: Int? = nil, additionalProperties: [String: JSONValue] = [:]) {
+                diskSizeMb: Int? = nil, rootDiskId: String? = nil, disks: [WorkspaceDiskAttachment]? = nil,
+                additionalProperties: [String: JSONValue] = [:]) {
         self.image = image; self.name = name; self.slug = slug; self.namespace = namespace
         self.mode = mode; self.type = type; self.config = config
         self.preset = preset; self.waitReady = waitReady; self.idempotencyKey = idempotencyKey
         self.readyTimeoutSeconds = readyTimeoutSeconds
         self.cpus = cpus; self.memoryMb = memoryMb; self.diskSizeMb = diskSizeMb
+        self.rootDiskId = rootDiskId; self.disks = disks
         self.additionalProperties = additionalProperties
     }
 
@@ -193,6 +197,8 @@ public struct WorkspaceCreateParams: Codable, Sendable {
         cpus = try fields.take("cpus", as: Int.self)
         memoryMb = try fields.take("memory_mb", as: Int.self)
         diskSizeMb = try fields.take("disk_size_mb", as: Int.self)
+        rootDiskId = try fields.take("root_disk_id", as: String.self)
+        disks = try fields.take("disks", as: [WorkspaceDiskAttachment].self)
         additionalProperties = fields.values
     }
 
@@ -212,6 +218,8 @@ public struct WorkspaceCreateParams: Codable, Sendable {
         try fields.set("cpus", cpus)
         try fields.set("memory_mb", memoryMb)
         try fields.set("disk_size_mb", diskSizeMb)
+        try fields.set("root_disk_id", rootDiskId)
+        try fields.set("disks", disks)
         try fields.encode(to: encoder)
     }
 }
@@ -273,6 +281,10 @@ public struct Workspace: Codable, Sendable {
     public var createdAt: String?
     public var updatedAt: String?
     public var status: String?
+    public var owner: AccountLabel?
+    public var sharing: WorkspaceSharing?
+    public var baseOs: Image.BaseOS?
+    public var preset: WorkspacePreset?
     public var additionalProperties: [String: JSONValue] = [:]
 
     public struct Info: Codable, Sendable {
@@ -341,6 +353,10 @@ public struct Workspace: Codable, Sendable {
         createdAt = try fields.take("created_at", as: String.self)
         updatedAt = try fields.take("updated_at", as: String.self)
         status = try fields.take("status", as: String.self)
+        owner = try fields.take("owner", as: AccountLabel.self)
+        sharing = try fields.take("sharing", as: WorkspaceSharing.self)
+        baseOs = try fields.take("base_os", as: Image.BaseOS.self)
+        preset = try fields.take("preset", as: WorkspacePreset.self)
         additionalProperties = fields.values
     }
 
@@ -364,6 +380,10 @@ public struct Workspace: Codable, Sendable {
         try fields.set("created_at", createdAt)
         try fields.set("updated_at", updatedAt)
         try fields.set("status", status)
+        try fields.set("owner", owner)
+        try fields.set("sharing", sharing)
+        try fields.set("base_os", baseOs)
+        try fields.set("preset", preset)
         try fields.encode(to: encoder)
     }
 }
@@ -623,6 +643,33 @@ public struct Image: Codable, Sendable {
     public var minimumResources: Resources?
     public var vmDefaults: WorkspaceConfig?
     public var software: [JSONValue]?
+    public var revision: String?
+    public var baseImage: String?
+    public var boot: Boot?
+    public var desktop: Desktop?
+
+    /// Typed catalog software without changing the existing extensible representation.
+    public var softwareMetadata: [CatalogSoftware]? {
+        get { software.flatMap { try? OblienJSON.decode([CatalogSoftware].self, OblienJSON.encode($0)) } }
+        set { software = newValue.flatMap { try? OblienJSON.decode([JSONValue].self, OblienJSON.encode($0)) } }
+    }
+    public struct Boot: Codable, Sendable {
+        public var workloads: [[String: JSONValue]]?
+        public var readyCheck: [String: JSONValue]?
+    }
+    public struct Desktop: Codable, Sendable {
+        public var runtimeTarget: String?
+        public var installable: Bool?
+        public var prepared: Bool?
+        public var vmDefaults: Resources?
+        public var minimumResources: Resources?
+        public var env: [Environment]?
+        public struct Environment: Codable, Sendable {
+            public let key: String
+            public var desc: String?
+            public let required: Bool
+        }
+    }
 
     public struct DiskTarget: Codable, Sendable {
         public let id: String
@@ -636,9 +683,28 @@ public struct Image: Codable, Sendable {
     }
 
     enum CodingKeys: String, CodingKey {
-        case id, label, category, image, logo, color, capabilities, diskTargets, baseOs, minimumMemoryMb, preset, minimumResources, vmDefaults, software
+        case id, label, category, image, logo, color, capabilities, diskTargets, baseOs, minimumMemoryMb, preset, minimumResources, vmDefaults, software, revision, baseImage, boot, desktop
         case description = "desc"
     }
+}
+
+public struct CatalogSoftware: Codable, Sendable, Identifiable {
+    public let id: String
+    public let label: String
+    public let readOnly: Bool
+    public let sizeMb: Int
+    public var role: String?
+    public var target: String?
+}
+
+public struct WorkspacePreset: Codable, Sendable {
+    public let id: String
+    public let revision: String
+    public let label: String
+    public let baseImage: String
+    public var logo: String?
+    public var color: String?
+    public let software: [CatalogSoftware]
 }
 
 public struct ImageCategory: Codable, Sendable {

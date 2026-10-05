@@ -41,6 +41,10 @@ public struct NamespacesAPI: Sendable {
     public func usage(_ id: String, _ params: NamespaceUsageParams = .init()) async throws -> APIResponse {
         try await transport.api("GET", path(id) + "/usage", query: APIJSON.query(params))
     }
+    public func usageData(_ id: String, _ params: NamespaceUsageParams = .init()) async throws -> NamespaceUsageData {
+        let response: APIDataResponse<NamespaceUsageData> = try await transport.api("GET", path(id) + "/usage", query: APIJSON.query(params))
+        return response.data
+    }
     public func usageUnits(_ id: String, _ params: NamespaceUsageUnitsParams = .init()) async throws -> NamespaceUsageUnits {
         let response: APIDataResponse<NamespaceUsageUnits> = try await transport.api("GET", path(id) + "/usage-units", query: APIJSON.query(params))
         return response.data

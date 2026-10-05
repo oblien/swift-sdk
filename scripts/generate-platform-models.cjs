@@ -7,6 +7,7 @@ const fs = require('fs');
 const path = require('path');
 const root = process.argv[2];
 if (!root) throw new Error('Pass the extracted oblien package dist directory');
+const version = JSON.parse(fs.readFileSync(path.join(root, '../package.json'), 'utf8')).version;
 const groups = ['namespace', 'pages', 'edge-proxy', 'edge-tunnel', 'webhooks', 'analytics', 'billing', 'cdn', 'notifications'];
 const extra = ['CheckSlugParams', 'CheckSlugResponse', 'VerifyDomainParams', 'VerifyDomainResponse',
   'DomainListParams', 'DomainRoute', 'DomainRoutesResponse', 'SslCertificate', 'SslListResponse', 'SslAutoRenewResponse'];
@@ -39,6 +40,7 @@ function numberType(key) {
 function isNull(node) { return node.kind === ts.SyntaxKind.NullKeyword || (ts.isLiteralTypeNode(node) && node.literal.kind === ts.SyntaxKind.NullKeyword); }
 function renderType(node, name, key) {
   if (!node) throw new Error('Missing type: ' + name);
+  if (ts.isImportTypeNode(node) && node.qualifier && declarations.has(node.qualifier.getText())) return node.qualifier.getText();
   if (ts.isParenthesizedTypeNode(node)) return renderType(node.type, name, key);
   if (node.kind === ts.SyntaxKind.StringKeyword) return 'String';
   if (node.kind === ts.SyntaxKind.NumberKeyword) return numberType(key);
@@ -148,6 +150,6 @@ for (const group of [...groups, 'workspace-resources', 'runtime']) {
     if (ts.isTypeAliasDeclaration(node)) renderAlias(node.name.text, node);
   }
   const filename = group === 'workspace-resources' ? 'AccountDomainModels' : group.split('-').map(upper).join('') + 'Models';
-  fs.writeFileSync(path.join(outDir, filename + '.swift'), '// Models audited against oblien 2.4.0. Regenerate with scripts/generate-platform-models.cjs.\nimport Foundation\n\n' + blocks.join('\n'));
+  fs.writeFileSync(path.join(outDir, filename + '.swift'), '// Models audited against oblien ' + version + '. Regenerate with scripts/generate-platform-models.cjs.\nimport Foundation\n\n' + blocks.join('\n'));
 }
 console.log('Generated ' + rendered.size + ' platform models with explicit wire keys.');

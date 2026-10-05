@@ -1,4 +1,4 @@
-// Models audited against oblien 2.4.0. Regenerate with scripts/generate-platform-models.cjs.
+// Models audited against oblien 2.8.0. Regenerate with scripts/generate-platform-models.cjs.
 import Foundation
 
 /// Open string enum; preserves new server values.
@@ -30,15 +30,24 @@ public struct NamespaceResourceLimits: Codable, Sendable {
     public var `maxVcpus`: JSONField<Int>?
     public var `maxRamMb`: JSONField<Int>?
     public var `maxDiskGb`: JSONField<Int>?
+    public var `maxTotalVcpus`: JSONField<Double>?
+    public var `maxTotalRamMb`: JSONField<Int>?
+    public var `maxTotalDiskGb`: JSONField<Int>?
 
     public init(`maxWorkspaces`: JSONField<Int>? = nil,
                 `maxVcpus`: JSONField<Int>? = nil,
                 `maxRamMb`: JSONField<Int>? = nil,
-                `maxDiskGb`: JSONField<Int>? = nil) {
+                `maxDiskGb`: JSONField<Int>? = nil,
+                `maxTotalVcpus`: JSONField<Double>? = nil,
+                `maxTotalRamMb`: JSONField<Int>? = nil,
+                `maxTotalDiskGb`: JSONField<Int>? = nil) {
         self.`maxWorkspaces` = `maxWorkspaces`
         self.`maxVcpus` = `maxVcpus`
         self.`maxRamMb` = `maxRamMb`
         self.`maxDiskGb` = `maxDiskGb`
+        self.`maxTotalVcpus` = `maxTotalVcpus`
+        self.`maxTotalRamMb` = `maxTotalRamMb`
+        self.`maxTotalDiskGb` = `maxTotalDiskGb`
     }
 
     enum CodingKeys: String, CodingKey {
@@ -46,6 +55,37 @@ public struct NamespaceResourceLimits: Codable, Sendable {
         case `maxVcpus` = "max_vcpus"
         case `maxRamMb` = "max_ram_mb"
         case `maxDiskGb` = "max_disk_gb"
+        case `maxTotalVcpus` = "max_total_vcpus"
+        case `maxTotalRamMb` = "max_total_ram_mb"
+        case `maxTotalDiskGb` = "max_total_disk_gb"
+    }
+}
+
+public struct NamespaceDataAllocatedResourceUsage: Codable, Sendable {
+    @APINumber public var `workspaces`: Double
+    @APINumber public var `vcpus`: Double
+    @APINumber public var `ramMb`: Int
+    @APINumber public var `diskGb`: Int
+    @APINumber public var `pendingUpdates`: Double
+
+    public init(`workspaces`: Double,
+                `vcpus`: Double,
+                `ramMb`: Int,
+                `diskGb`: Int,
+                `pendingUpdates`: Double) {
+        self.`workspaces` = `workspaces`
+        self.`vcpus` = `vcpus`
+        self.`ramMb` = `ramMb`
+        self.`diskGb` = `diskGb`
+        self.`pendingUpdates` = `pendingUpdates`
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case `workspaces` = "workspaces"
+        case `vcpus` = "vcpus"
+        case `ramMb` = "ram_mb"
+        case `diskGb` = "disk_gb"
+        case `pendingUpdates` = "pending_updates"
     }
 }
 
@@ -61,6 +101,8 @@ public struct NamespaceData: Codable, Sendable {
     public var `metadata`: [String: JSONValue]?
     public var `tags`: [String]?
     public var `resourceLimits`: NamespaceResourceLimits?
+    public var `effectiveResourceLimits`: NamespaceResourceLimits?
+    public var `allocatedResourceUsage`: NamespaceDataAllocatedResourceUsage?
     public var `createdAt`: String
     public var `updatedAt`: String
     public var `lastActiveAt`: String?
@@ -76,6 +118,8 @@ public struct NamespaceData: Codable, Sendable {
                 `metadata`: [String: JSONValue]? = nil,
                 `tags`: [String]? = nil,
                 `resourceLimits`: NamespaceResourceLimits? = nil,
+                `effectiveResourceLimits`: NamespaceResourceLimits? = nil,
+                `allocatedResourceUsage`: NamespaceDataAllocatedResourceUsage? = nil,
                 `createdAt`: String,
                 `updatedAt`: String,
                 `lastActiveAt`: String? = nil) {
@@ -90,6 +134,8 @@ public struct NamespaceData: Codable, Sendable {
         self.`metadata` = `metadata`
         self.`tags` = `tags`
         self.`resourceLimits` = `resourceLimits`
+        self.`effectiveResourceLimits` = `effectiveResourceLimits`
+        self.`allocatedResourceUsage` = `allocatedResourceUsage`
         self.`createdAt` = `createdAt`
         self.`updatedAt` = `updatedAt`
         self.`lastActiveAt` = `lastActiveAt`
@@ -107,6 +153,8 @@ public struct NamespaceData: Codable, Sendable {
         case `metadata` = "metadata"
         case `tags` = "tags"
         case `resourceLimits` = "resource_limits"
+        case `effectiveResourceLimits` = "effective_resource_limits"
+        case `allocatedResourceUsage` = "allocated_resource_usage"
         case `createdAt` = "created_at"
         case `updatedAt` = "updated_at"
         case `lastActiveAt` = "last_active_at"
@@ -575,6 +623,55 @@ public struct OverdraftAction: RawRepresentable, Codable, Sendable, Hashable {
     public static let `stopWorkspaces` = Self(rawValue: "stop_workspaces")
 }
 
+public struct NamespaceQuotaAlert: Codable, Sendable {
+    /// Accepted values: 'ok' | 'low' | 'grace' | 'depleted' | 'unlimited' | 'disabled'.
+    public var `state`: String
+    public var `thresholds`: [Double]
+    @APIOptionalNumber public var `threshold`: Double?
+    @APIOptionalNumber public var `percent`: Int?
+    @APINumber public var `used`: Double
+    @APIOptionalNumber public var `limit`: Int?
+    @APIOptionalNumber public var `remaining`: Double?
+    @APIOptionalNumber public var `balance`: Double?
+    @APINumber public var `overdraft`: Double
+    @APIBoolean public var `blocking`: Bool
+
+    public init(`state`: String,
+                `thresholds`: [Double],
+                `threshold`: Double? = nil,
+                `percent`: Int? = nil,
+                `used`: Double,
+                `limit`: Int? = nil,
+                `remaining`: Double? = nil,
+                `balance`: Double? = nil,
+                `overdraft`: Double,
+                `blocking`: Bool) {
+        self.`state` = `state`
+        self.`thresholds` = `thresholds`
+        self.`threshold` = `threshold`
+        self.`percent` = `percent`
+        self.`used` = `used`
+        self.`limit` = `limit`
+        self.`remaining` = `remaining`
+        self.`balance` = `balance`
+        self.`overdraft` = `overdraft`
+        self.`blocking` = `blocking`
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case `state` = "state"
+        case `thresholds` = "thresholds"
+        case `threshold` = "threshold"
+        case `percent` = "percent"
+        case `used` = "used"
+        case `limit` = "limit"
+        case `remaining` = "remaining"
+        case `balance` = "balance"
+        case `overdraft` = "overdraft"
+        case `blocking` = "blocking"
+    }
+}
+
 public struct NamespaceQuota: Codable, Sendable {
     @APINumber public var `id`: Int
     public var `clientId`: String
@@ -582,6 +679,9 @@ public struct NamespaceQuota: Codable, Sendable {
     public var `service`: String
     @APIOptionalNumber public var `quotaLimit`: Double?
     @APINumber public var `quotaUsed`: Double
+    @APIOptionalNumber public var `purchasedCredits`: Double?
+    @APIOptionalNumber public var `suspendThreshold`: Double?
+    public var `alert`: NamespaceQuotaAlert?
     @APINumber public var `overdraft`: Double
     public var `onOverdraftAction`: OverdraftAction
     public var `notificationThresholds`: [Double]?
@@ -596,6 +696,9 @@ public struct NamespaceQuota: Codable, Sendable {
                 `service`: String,
                 `quotaLimit`: Double? = nil,
                 `quotaUsed`: Double,
+                `purchasedCredits`: Double? = nil,
+                `suspendThreshold`: Double? = nil,
+                `alert`: NamespaceQuotaAlert? = nil,
                 `overdraft`: Double,
                 `onOverdraftAction`: OverdraftAction,
                 `notificationThresholds`: [Double]? = nil,
@@ -609,6 +712,9 @@ public struct NamespaceQuota: Codable, Sendable {
         self.`service` = `service`
         self.`quotaLimit` = `quotaLimit`
         self.`quotaUsed` = `quotaUsed`
+        self.`purchasedCredits` = `purchasedCredits`
+        self.`suspendThreshold` = `suspendThreshold`
+        self.`alert` = `alert`
         self.`overdraft` = `overdraft`
         self.`onOverdraftAction` = `onOverdraftAction`
         self.`notificationThresholds` = `notificationThresholds`
@@ -625,6 +731,9 @@ public struct NamespaceQuota: Codable, Sendable {
         case `service` = "service"
         case `quotaLimit` = "quota_limit"
         case `quotaUsed` = "quota_used"
+        case `purchasedCredits` = "purchased_credits"
+        case `suspendThreshold` = "suspend_threshold"
+        case `alert` = "alert"
         case `overdraft` = "overdraft"
         case `onOverdraftAction` = "on_overdraft_action"
         case `notificationThresholds` = "notification_thresholds"
@@ -632,6 +741,26 @@ public struct NamespaceQuota: Codable, Sendable {
         case `enabled` = "enabled"
         case `createdAt` = "created_at"
         case `updatedAt` = "updated_at"
+    }
+}
+
+public struct NamespaceUsageData: Codable, Sendable {
+    public var `usage`: [[String: JSONValue]]
+    public var `summary`: [[String: JSONValue]]
+    public var `quotas`: [NamespaceQuota]
+
+    public init(`usage`: [[String: JSONValue]],
+                `summary`: [[String: JSONValue]],
+                `quotas`: [NamespaceQuota]) {
+        self.`usage` = `usage`
+        self.`summary` = `summary`
+        self.`quotas` = `quotas`
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case `usage` = "usage"
+        case `summary` = "summary"
+        case `quotas` = "quotas"
     }
 }
 
